@@ -85,7 +85,7 @@ var options = {
     var optionsForDriver = {
       series: [
         {
-          name: "Sales",
+          name: "Number of bins cleared",
           data: [0, 3],
         },
       ],
@@ -113,19 +113,17 @@ var options = {
       },
       xaxis: {
         type: "category",
-        categories: [
-         
-        ],
+        categories: [],
         labels: {
           style: {
             colors: "#fff", // Set x-axis labels text color to white
-            rotate: -45 
+            rotate: -45,
           },
         },
       },
       yaxis: {
         title: {
-          text: "Bins cleared",
+          text: "Net Bins cleared",
           style: {
             color: "#fff", // Set y-axis title color to white
           },
@@ -140,7 +138,7 @@ var options = {
         borderColor: "#555", // Grid line color
         strokeDashArray: 5,
       },
-      colors: ["#F44336"],
+      colors: ["#66023c"],
       tooltip: {
         theme: "dark", // Set tooltip theme to dark
       },
@@ -151,16 +149,18 @@ var options = {
 
 
 var chart = new ApexCharts(document.querySelector("#chart"), options);
+
 chart.render();
 
 
   var chart1 = new ApexCharts(
     document.querySelector("#binClearChart"),
     optionsForDriver
-  );
+);
+  
   chart1.render();
 
-  document.querySelector(".details").addEventListener("click", function () {
+  document.querySelector(".collect").addEventListener("click", function () {
     window.location.href =
-      "intent://maps.google.com/maps?daddr=37.7749,-122.4194#Intent;scheme=https;package=com.google.android.apps.maps;end";
+      "https://maps.app.goo.gl/5P11PxgNJj9cq3U16";
   });

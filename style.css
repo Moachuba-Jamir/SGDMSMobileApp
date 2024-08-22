@@ -28,7 +28,7 @@ body{
 .title {
   height: 50px;
   width: 100% !important;
-  background: rgb(249, 236, 202);
+background: rgba(48, 48, 48, 0.92);
   box-shadow: rgba(0, 0, 0, 0.041) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
@@ -56,7 +56,7 @@ body{
 .secondSec{
   margin-top: 10% !important;
 }
-.detContainer{
+.detContainer, .detContainer1{
   background-color: rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding-top: 7%;
@@ -65,6 +65,9 @@ body{
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
+}
+.analyticsContainer{
+  padding-bottom: 0;
 }
 
 .btn{
@@ -105,7 +108,7 @@ body{
   font-size: 2.1rem;
 }
 .subGreet{
-  font-size: 0.5rem;
+  font-size: 0.58rem;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin-top: -2%;
 }
@@ -129,10 +132,13 @@ body{
 }
 
 
-/* .footer {
-  padding-top: 125% ;
-  background-color: #f8f9fa; 
+.footer {
+ margin-top: 5%;
+  background: rgba(234, 232, 232, 0.863);
   border-top: 1px solid #e9ecef; 
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+ 
 }
 
 .footer .container {
@@ -140,9 +146,13 @@ body{
 }
 
 .text-muted {
-  color: #6c757d;
-} */
+  color: #323232 !important;
+}
 
+.zc{
+  height: 50px;
+  width: 160px;
+}
 
 
 
