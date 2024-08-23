@@ -1,3 +1,75 @@
+
+
+function getReadings(userId) {
+  var count = [1, 2, 3, 4, 5];
+  if (userId === "01") {
+    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[0]}`)
+      .then((res) => {
+        return res.json(); // Ensure the response is returned as JSON
+      })
+      .then(({ message }) => {
+        // update the fill level from here
+        console.log(`from chart.js ${message}`);
+        chart.updateSeries([parseInt(message)]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  } else if (userId === "02") {
+    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[1]}`)
+      .then((res) => {
+        return res.json(); // Ensure the response is returned as JSON
+      })
+      .then(({ message }) => {
+        // update the fill level from here
+        console.log(`from chart.js ${message}`);
+        chart.updateSeries([parseInt(message)]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  } else if (userId === "03") {
+    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[1]}`)
+      .then((res) => {
+        return res.json(); // Ensure the response is returned as JSON
+      })
+      .then(({ message }) => {
+        // update the fill level from here
+        console.log(`from chart.js ${message}`);
+           chart.updateSeries([parseInt(message)]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  } else if (userId === "04") {
+    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[2]}`)
+      .then((res) => {
+        return res.json(); // Ensure the response is returned as JSON
+      })
+      .then(({ message }) => {
+        // update the fill level from here
+        console.log(`from chart.js ${message}`);
+        chart.updateSeries([parseInt(message)]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  } else if (userId === "05") {
+    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[4]}`)
+      .then((res) => {
+        return res.json(); // Ensure the response is returned as JSON
+      })
+      .then(({ message }) => {
+        // update the fill level from here
+        console.log(`from chart.js ${message}`);
+        chart.updateSeries([parseInt(message)]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }
+}
+
 var options = {
   series: [50], // dynamically change this
   chart: {
@@ -149,18 +221,101 @@ var optionsForDriver = {
   },
 };
 
-
 var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-chart.render();
 
 var chart1 = new ApexCharts(
   document.querySelector("#binClearChart"),
   optionsForDriver
 );
 
+chart.render();
 chart1.render();
 
-document.querySelector(".collect").addEventListener("click", function () {
-  window.location.href = "https://maps.app.goo.gl/5P11PxgNJj9cq3U16";
+document.querySelector(".logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("name");
+  window.location.href = "index.html";
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+const isLoggedIn = localStorage.getItem("isLoggedIn");
+if (isLoggedIn === "true") {
+  // Redirect to dashboard if already logged in
+  if (window.location.pathname !== "/dashboard.html") {
+    window.location.href = "dashboard.html";
+  }
+}
+  var user = localStorage.getItem("name");
+  if (!user) return; // Exit if no user is found in localStorage
+
+  document.getElementById("driverName").innerHTML = user;
+
+  fetch("https://backend-for-sgdms-1-tkoe.onrender.com/bins")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Data fetched:", data);
+
+      // Find the user in the drivers array
+      const driver = data.drivers.find((driver) => driver.driverName === user);
+      if (driver) {
+        // Get userId
+        const userId = driver.id;
+        switch (userId) {
+          case "01":
+            setInterval(() => {
+              getReadings(userId);
+            }, 5000);
+            break;
+          case "02":
+            setInterval(() => {
+              getReadings(userId);
+            }, 5000);
+            break;
+          case "03":
+            setInterval(() => {
+              getReadings(userId);
+            }, 5000);
+            break;
+          case "04":
+            setInterval(() => {
+              getReadings(userId);
+            }, 5000);
+            break;
+          case "05":
+            setInterval(() => {
+              getReadings(userId);
+            }, 5000);
+            break;
+          default:
+            console.warn("NO such endpoints for esp readings ");
+            break;
+        }
+
+        // find the links in the object
+        const locationLink = data.bins[0].myBins.find(
+          (bin) => bin.id === userId
+        );
+        if (locationLink) {
+          console.log(locationLink.driverLink);
+          document.querySelector(".collect").addEventListener("click", () => {
+            window.location.href = locationLink.driverLink;
+          });
+        }
+        // Find the bin for the user
+        const userBin = data.bins[0].myBins.find((bin) => bin.id === userId);
+        if (userBin) {
+          document.getElementById("location").innerHTML = userBin.location;
+          console.log(userBin.driverLink);
+        }
+      } else {
+        console.error("No bin found for user:");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+});
+
+
+
+

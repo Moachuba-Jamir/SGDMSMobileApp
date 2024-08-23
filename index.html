@@ -2,10 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-
-    <title>Mobile App SGDMS</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Driver Log in SGDMS</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="login.css" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,85 +18,40 @@
     />
   </head>
   <body>
-    <div class="mainContainer container-fluid">
-      <div class="row">
-        <div
-          class="col-sm-12 title d-flex justify-content-between align-items-center"
-        >
-          <img
-            class="img col-sm-4 col-md-3"
-            src="/assets/logo.png"
-            alt="logo"
-          />
-          <img class="user" src="/assets/user.png" alt="user" />
-        </div>
-
-        <div class="container greetContainer">
-          <div class="col-12 greet">
-            <h1>Hi Mary</h1>
-            <p class="subGreet">Welcome, your bins await!</p>
-          </div>
-        </div>
-
-        <!-- apex chart bin fill level -->
-    
-        <div
-          class="col-sm-12 col-md-12 d-flex justify-content-between align-items-center box"
-          id="chart"
-          style="width: 300px"
-        >
-      </div>
-           
+    <form id="loginForm">
+      <div class="d-flex justify-content-center align-items-center">
+        <img src="/assets/logo.png" class="loginLogo" alt="" />
       </div>
 
-      <div class="secondSec container">
-        <!-- details section -->
-        <div class="col-12">
-          <h3 class="detailHeader">Details</h3>
-        </div>
-        <div class="row detContainer">
-          <div
-            class="col-5 details d-flex justify-content-center align-items-center ms-4 "
-          >
-            <!-- details row  -->
-            <h4>Dimapur</h4>
-            <span>Purana Bazaar</span>
-          </div>
+     <div class="container loginContaier">
+       
+      <h3 style="text-align: left; font-size: 2rem">Driver login</h3>
+      <label for="username">Username</label>
+      <input
+        type="text"
+        placeholder="Enter username"
+        id="username"
+        autocomplete="username"
+      />
 
-          <div class="col-6 d-flex justify-content-center align-items-center">
-            <!-- buttons  -->
-            <div
-              class="btnContainer d-flex justify-content-between align-items-center"
-            >
-              <button class="btn btn-danger collect"> <img src="/assets/bin1.png" class="trashCol" alt=""> Collect </button>
-              <button class="btn btn-success disabled btn2">Disposed</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="thirdSec container">
-        <div class="col-12">
-          <h3 class="detailHeader">Analytics</h3>
-        </div>
-        <div class="row detContainer1 analyticsContainer">
-          <div id="binClearChart"></div>
-        </div>
-      </div>
-    </div>
-
-    <br />
-    <footer class="footer mt-auto py-3">
-      <div class="container text-center">
-        <span class="text-muted">© 2024 Zeliang codetech Pvt Ltd</span>
-        <a href="https://zeliangcodetech.com/"
-          ><img class="image-fluid zc" src="./assets/zc.webp" alt="ZC"
-        /></a>
-      </div>
-    </footer>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        placeholder="Enter Password"
+        id="password"
+        autocomplete="current-password"
+      />
+      <span class="showPass"
+        >Show password
+        <img src="/assets/closedEye.png" class="pass closedEye" alt=""
+      /></span>
+      <br />
+      <button id="loginBtn">Log In</button>
+      <span class="error"> </span>
+     </div>
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="script.js"></script>
+    <script src="/login.js"></script>
   </body>
 </html>

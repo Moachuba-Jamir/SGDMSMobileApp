@@ -24,20 +24,20 @@ body {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 600px;
   border-bottom-left-radius: 0px;
- box-shadow: rgba(2, 115, 111, 0.922) 0px 22px 70px 4px;
- border: none ;
+  box-shadow: rgba(2, 115, 111, 0.922) 0px 22px 70px 4px;
+  border: none;
 }
-.trashCol{
+.trashCol {
   height: 50px;
   width: 50px;
   margin-left: -40% !important;
   margin-top: -10%;
 }
 
-.truck{
+.truck {
   height: 40px;
   width: 40px;
-   margin-left: -20% !important;
+  margin-left: -20% !important;
   margin-top: -2%;
 }
 
@@ -117,7 +117,7 @@ body {
   -moz-border-radius: 10px !important;
   -ms-border-radius: 10px !important;
   -o-border-radius: 10px !important;
- box-shadow: rgba(0, 0, 0, 0.564) 0px 19px 38px,
+  box-shadow: rgba(0, 0, 0, 0.564) 0px 19px 38px,
     rgba(0, 0, 0, 0.475) 0px 15px 12px;
   border: none !important;
 }
@@ -155,12 +155,14 @@ body {
   margin-top: -2%;
 }
 .user {
- height: 30px !important;
- width: 30px !important;
- margin-left: auto;
- /*Pushestheuserimagetotheright*/margin-right: 5%;
- filter: grayscale(90%) ;
- -webkit-filter: grayscale(00%) ;
+  height: 40px !important;
+  width: 40px !important;
+  margin-left: auto;
+}
+.logout{
+  font-family: gotham;
+  font-size: .7rem;
+  opacity: .7;
 }
 
 .detailHeader {
@@ -222,7 +224,6 @@ body {
   margin-top: 10%;
 }
 
-
-.truck{
+.truck {
   height: 40px;
 }
