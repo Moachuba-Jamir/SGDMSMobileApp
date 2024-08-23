@@ -160,7 +160,7 @@ body {
  margin-left: auto;
  /*Pushestheuserimagetotheright*/margin-right: 5%;
  filter: grayscale(90%) ;
- -webkit-filter: grayscale(90%) ;
+ -webkit-filter: grayscale(00%) ;
 }
 
 .detailHeader {
@@ -224,5 +224,5 @@ body {
 
 
 .truck{
-  height: ;
+  height: 40px;
 }
