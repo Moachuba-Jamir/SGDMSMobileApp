@@ -27,7 +27,7 @@ function getReadings(userId) {
         console.error("Error fetching data:", error);
       });
   } else if (userId === "03") {
-    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[1]}`)
+    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[2]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
@@ -40,7 +40,7 @@ function getReadings(userId) {
         console.error("Error fetching data:", error);
       });
   } else if (userId === "04") {
-    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[2]}`)
+    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[3]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
@@ -236,11 +236,11 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   if (!isLoggedIn) {
-    // Redirect to login page if not logged in
-    window.location.href = "login.html";
+    // Redirect to login(index) page if not logged in
+    window.location.href = "index.html";
   } else {
     var user = localStorage.getItem("name");
     if (!user) return; // Exit if no user is found in localStorage
