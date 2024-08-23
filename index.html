@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+
     <title>Mobile App SGDMS</title>
     <link rel="stylesheet" href="style.css" />
     <link
@@ -14,14 +15,9 @@
   </head>
   <body>
     <div class="mainContainer container-fluid">
-
-
-
-
-      
       <div class="row">
         <div
-          class="col-sm-12 title  d-flex justify-content-between align-items-center"
+          class="col-sm-12 title d-flex justify-content-between align-items-center"
         >
           <img
             class="img col-sm-4 col-md-3"
@@ -39,18 +35,26 @@
         </div>
 
         <!-- apex chart bin fill level -->
-        <div class="col-sm-12 col-md-12 box" id="chart" style="width: 320px">
-        </div>
+    
+        <div
+          class="col-sm-12 col-md-12 d-flex justify-content-between align-items-center"
+          id="chart"
+          style="width: 300px"
+        >
+         <!-- <img class="bg" src="/assets/bg.png" alt=""> -->
+       
+      </div>
+           
       </div>
 
       <div class="secondSec container">
         <!-- details section -->
         <div class="col-12">
-          <h5 class="detailHeader">Details</h5>
+          <h3 class="detailHeader">Details</h3>
         </div>
         <div class="row detContainer">
           <div
-            class="col-5 details d-flex justify-content-center align-items-center ms-4 mt-2"
+            class="col-5 details d-flex justify-content-center align-items-center ms-4 "
           >
             <!-- details row  -->
             <h4>Dimapur</h4>
@@ -59,31 +63,35 @@
 
           <div class="col-6 d-flex justify-content-center align-items-center">
             <!-- buttons  -->
-            <div class="btnContainer d-flex justify-content-between align-items-center">
-               <button class="btn btn-danger  collect">Collect Trash</button>
-             <button class="btn btn-success disabled">Disposed</button>
+            <div
+              class="btnContainer d-flex justify-content-between align-items-center"
+            >
+              <button class="btn btn-danger collect">Collect Trash</button>
+              <button class="btn btn-success disabled btn2">Disposed</button>
             </div>
           </div>
         </div>
       </div>
 
       <div class="thirdSec container">
-           <div class="col-12">
-          <h5 class="detailHeader">Analytics</h5>
+        <div class="col-12">
+          <h3 class="detailHeader">Analytics</h3>
         </div>
-         <div class="row detContainer1 analyticsContainer">
+        <div class="row detContainer1 analyticsContainer">
           <div id="binClearChart"></div>
-         </div>
+        </div>
       </div>
     </div>
 
- <br>
-       <footer class="footer mt-auto py-3">
+    <br />
+    <footer class="footer mt-auto py-3">
       <div class="container text-center">
-        <span class="text-muted">© 2024 Zelaing codetech Pvt Ltd</span>
-        <a href="https://zeliangcodetech.com/"><img class="image-fluid zc"src="./assets/zc.webp" alt="ZC"></a>
+        <span class="text-muted">© 2024 Zeliang codetech Pvt Ltd</span>
+        <a href="https://zeliangcodetech.com/"
+          ><img class="image-fluid zc" src="./assets/zc.webp" alt="ZC"
+        /></a>
       </div>
-    </footer> 
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

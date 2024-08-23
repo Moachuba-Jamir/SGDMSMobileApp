@@ -1,7 +1,7 @@
 var options = {
-  series: [89], // dynamically change this
+  series: [50], // dynamically change this
   chart: {
-    height: 350,
+    height: 400,
     type: "radialBar",
     toolbar: {
       show: true,
@@ -17,7 +17,7 @@ var options = {
       hollow: {
         margin: 0,
         size: "50%",
-        background: "#fff",
+        background: "#F5F5D7",
         image: undefined,
         imageOffsetX: 0,
         imageOffsetY: 0,
@@ -81,86 +81,82 @@ var options = {
   labels: ["Fill Level"],
 };
 
-
-    var optionsForDriver = {
-      series: [
-        {
-          name: "Number of bins cleared",
-          data: [0, 3],
-        },
-      ],
-      chart: {
-        type: "area",
-        height: 200,
-        background: "transparent", // Set chart background color
+var optionsForDriver = {
+  series: [
+    {
+      name: "Number of bins cleared",
+      data: [0, 5],
+    },
+  ],
+  chart: {
+    type: "area",
+    height: 200,
+    background: "transparent", // Set chart background color
+  },
+  stroke: {
+    curve: "smooth",
+    width: 2,
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "light",
+      type: "horizontal",
+      shadeIntensity: 0.5,
+      gradientToColors: ["#50e3c2"], // to set gradient colors
+      inverseColors: false,
+      opacityFrom: 0.7,
+      opacityTo: 0.5,
+      stops: [0, 100],
+    },
+  },
+  xaxis: {
+    type: "category",
+    categories: [],
+    labels: {
+      style: {
+        colors: "#fff", // Set x-axis labels text color to white
+        rotate: -45,
       },
-      stroke: {
-        curve: "smooth",
-        width: 2,
+    },
+  },
+  yaxis: {
+    title: {
+      text: "Net Bins cleared",
+      style: {
+        color: "#fff", // Set y-axis title color to white
       },
-      fill: {
-        type: "gradient",
-        gradient: {
-          shade: "light",
-          type: "horizontal",
-          shadeIntensity: 0.5,
-          gradientToColors: ["#50e3c2"], // to set gradient colors
-          inverseColors: false,
-          opacityFrom: 0.7,
-          opacityTo: 0.5,
-          stops: [0, 100],
-        },
+    },
+    labels: {
+      style: {
+        colors: "#fff", // Set y-axis labels text color to white
       },
-      xaxis: {
-        type: "category",
-        categories: [],
-        labels: {
-          style: {
-            colors: "#fff", // Set x-axis labels text color to white
-            rotate: -45,
-          },
-        },
-      },
-      yaxis: {
-        title: {
-          text: "Net Bins cleared",
-          style: {
-            color: "#fff", // Set y-axis title color to white
-          },
-        },
-        labels: {
-          style: {
-            colors: "#fff", // Set y-axis labels text color to white
-          },
-        },
-      },
-      grid: {
-        borderColor: "#555", // Grid line color
-        strokeDashArray: 5,
-      },
-      colors: ["#66023c"],
-      tooltip: {
-        theme: "dark", // Set tooltip theme to dark
-      },
-      theme: {
-        mode: "dark", // Use dark mode for the overall theme
-      },
-    };
-
+    },
+  },
+  grid: {
+    borderColor: "#555", // Grid line color
+    strokeDashArray: 5,
+  },
+  colors: ["#66023c"],
+  tooltip: {
+    theme: "dark", // Set tooltip theme to dark
+  },
+  theme: {
+    mode: "dark", // Use dark mode for the overall theme
+  },
+};
 
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 
 chart.render();
 
-
-  var chart1 = new ApexCharts(
-    document.querySelector("#binClearChart"),
-    optionsForDriver
+var chart1 = new ApexCharts(
+  document.querySelector("#binClearChart"),
+  optionsForDriver
 );
-  
-  chart1.render();
 
-  document.querySelector(".collect").addEventListener("click", function () {
-    window.location.href =
-      "https://maps.app.goo.gl/5P11PxgNJj9cq3U16";
-  });
+chart1.render();
+
+document.querySelector(".collect").addEventListener("click", function () {
+  window.location.href = "https://maps.app.goo.gl/5P11PxgNJj9cq3U16";
+});
