@@ -92,6 +92,9 @@ var optionsForDriver = {
     type: "area",
     height: 200,
     background: "transparent", // Set chart background color
+    toolbar: {
+      show: false, // Hides the entire toolbar
+    },
   },
   stroke: {
     curve: "smooth",
@@ -145,6 +148,7 @@ var optionsForDriver = {
     mode: "dark", // Use dark mode for the overall theme
   },
 };
+
 
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 

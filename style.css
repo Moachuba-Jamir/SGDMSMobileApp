@@ -19,41 +19,37 @@ body {
   width: 470px;
   z-index: 1000;
   margin: 4px auto;
-  background-image: url("/assets/bg.png");
-   position: relative;
-  overflow: hidden;
-  /* background-color: #a6e6cd;
+  background-color: #a6e6cd;
   border-top-left-radius: 600px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 600px;
   border-bottom-left-radius: 0px;
  box-shadow: rgba(2, 115, 111, 0.922) 0px 22px 70px 4px;
- border: none ; */
+ border: none ;
 }
 
-#chart::after {
+/* #chart::after {
   content: "";
   background-image: url('/assets/bg.png');
-  background-size: 270px 270px; /* Adjust the width and height of the background image */
+  background-size: 270px 270px; 
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.5; /* Set the opacity of the background image */
+  opacity: 0.5; 
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: -19;
-}
+} **/
 
 .title {
   position: sticky;
   top: 0;
-
   z-index: 1000;
   height: 60px;
   width: 100% !important;
-  background: rgba(36, 36, 36, 0.324);
+  background: rgba(0, 0, 0, 0.643);
   box-shadow: rgba(0, 0, 0, 0.041) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-bottom-right-radius: 20px;
@@ -74,8 +70,8 @@ body {
   -moz-border-radius: 15px;
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.623) 0px 19px 38px,
-    rgba(0, 0, 0, 0.983) 0px 15px 12px;
+  box-shadow: rgba(13, 15, 28, 0.883) 0px 19px 38px,
+    rgba(0, 0, 0, 0.028) 0px 15px 12px;
   flex-direction: column;
 }
 .secondSec {
@@ -101,15 +97,15 @@ body {
   width: 130px !important;
   margin-left: 10% !important;
   border-radius: 10px !important;
-  background-color: rgb(96, 1, 72) !important;
+  background-color: rgb(116, 2, 87) !important;
   font-size: 1rem !important;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   -webkit-border-radius: 10px !important;
   -moz-border-radius: 10px !important;
   -ms-border-radius: 10px !important;
   -o-border-radius: 10px !important;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+ box-shadow: rgba(0, 0, 0, 0.564) 0px 19px 38px,
+    rgba(0, 0, 0, 0.475) 0px 15px 12px;
   border: none !important;
 }
 .btn2 {
@@ -177,7 +173,7 @@ body {
 }
 
 .text-muted {
-  color: #323232 !important;
+  color: #000000 !important;
 }
 
 .zc {
