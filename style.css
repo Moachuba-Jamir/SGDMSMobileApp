@@ -27,10 +27,23 @@ body {
  box-shadow: rgba(2, 115, 111, 0.922) 0px 22px 70px 4px;
  border: none ;
 }
+.trashCol{
+  height: 50px;
+  width: 50px;
+  margin-left: -40% !important;
+  margin-top: -10%;
+}
+
+.truck{
+  height: 40px;
+  width: 40px;
+   margin-left: -20% !important;
+  margin-top: -2%;
+}
 
 /* #chart::after {
   content: "";
-  background-image: url('/assets/bg.png');
+  background-image: url('/assets/bin1.png');
   background-size: 270px 270px; 
   background-position: center;
   background-repeat: no-repeat;
@@ -41,7 +54,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: -19;
-} **/
+} * */
 
 .title {
   position: sticky;
@@ -97,7 +110,7 @@ body {
   width: 130px !important;
   margin-left: 10% !important;
   border-radius: 10px !important;
-  background-color: rgb(116, 2, 87) !important;
+  background-color: rgb(65, 2, 93) !important;
   font-size: 1rem !important;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   -webkit-border-radius: 10px !important;
@@ -109,7 +122,7 @@ body {
   border: none !important;
 }
 .btn2 {
-  background-color: rgb(49, 144, 110) !important;
+  background-color: rgb(117, 52, 44) !important;
 }
 
 .details h4 {
@@ -142,10 +155,12 @@ body {
   margin-top: -2%;
 }
 .user {
-  height: 30px !important;
-  width: 30px !important;
-  margin-left: auto; /* Pushes the user image to the right */
-  margin-right: 5%;
+ height: 30px !important;
+ width: 30px !important;
+ margin-left: auto;
+ /*Pushestheuserimagetotheright*/margin-right: 5%;
+ filter: grayscale(90%) ;
+ -webkit-filter: grayscale(90%) ;
 }
 
 .detailHeader {
@@ -205,4 +220,9 @@ body {
 
 .thirdSec {
   margin-top: 10%;
+}
+
+
+.truck{
+  height: ;
 }
