@@ -33,7 +33,7 @@ body {
 
 #chart {
     margin: 4px auto;
-    box-shadow:     0 0 30px rgba(150, 219, 173, 0.673), /* Smallest glow */    0 0 50px rgba(140, 34, 98, 0.487);
+    box-shadow:     0 0 40px rgba(3, 110, 79, 0.673), /* Smallest glow */    0 0 50px rgba(79, 1, 48, 0.487);
     /*Largest,faintglow*/border-radius:400px ;
     background-color: #0f0f0f;
     margin-bottom: 10%;
@@ -42,6 +42,8 @@ body {
     -moz-border-radius: 500px !important;
     -ms-border-radius: 500px !important;
     -o-border-radius: 500px !important;
+     max-width: 100%; /* Add this line */
+     width: 270px;
 }
 .trashCol {
   height: 50px;
@@ -201,7 +203,7 @@ body {
   font-family: gotham;
 }
 .secondSec{
-    margin-top: 13% !important;
+    margin-top: 5% !important;
 }
 
 .greet {
@@ -213,8 +215,6 @@ body {
 }
 
 
-.footer .container {
-}
 
 .text-muted {
   color: #000000 !important;
@@ -286,3 +286,4 @@ a{
   margin-right: 5px;
 
 }
+
