@@ -12,6 +12,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   </head>
   <body>
     <div class="mainContainer container-fluid">
@@ -27,39 +28,41 @@
           
           <div class="logoutBtn">
             <img class="user" src="/assets/logout.png" alt="user" />
-          <span class="logout">Logout</span>
+          <span class="logout"></span>
           </div>
         </div>
 
         <div class="container greetContainer">
           <div class="col-12 greet">
-            <h1>Hi <span id="driverName"></span></h1>
+            <h3>Hi <span id="driverName"></span></h3>
             <p class="subGreet">Welcome, your bins await!</p>
           </div>
         </div>
 
         <!-- apex chart bin fill level -->
     
-        <div
-          class="col-sm-12 col-md-12 d-flex justify-content-between align-items-center box"
+    
+          <div
+          class="col-sm-12 col-md-12 d-flex justify-content-between align-items-center"
           id="chart"
-          style="width: 300px"
+          style="width: 270px"
         >
-      </div>
+     
+    </div>
            
       </div>
 
-      <div class="secondSec container">
+      <div class="secondSec container" data-aos="zoom-in-up">
         <!-- details section -->
         <div class="col-12">
-          <h3 class="detailHeader">Details</h3>
+          <h4 class="detailHeader">Details</h4>
         </div>
         <div class="row detContainer">
           <div
             class="col-5 details d-flex justify-content-center align-items-center ms-4 "
           >
             <!-- details row  -->
-            <h4>Dimapur</h4>
+        <img src="/assets/location1.png" alt="" class="locationLogo"><h6 class="municipal">Dimapur</h6>
             <span id="location"></span>
           </div>
 
@@ -69,25 +72,49 @@
               class="btnContainer d-flex justify-content-between align-items-center"
             >
               <button class="btn btn-danger collect"> <img src="/assets/bin1.png" class="trashCol" alt=""> Collect </button>
-              <button class="btn btn-success disabled btn2">Disposed</button>
+              <button class="btn btn-success  btn2"><img src="/assets/disposed.png" class=" disposed" alt="">&nbspDisposed</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="thirdSec container">
+      <div class="thirdSec container"  data-aos="zoom-out-up">
         <div class="col-12">
-          <h3 class="detailHeader">Analytics</h3>
+          <h3 class="detailHeader" data-aos="fade-down">Results</h3>
         </div>
-        <div class="row detContainer1 analyticsContainer">
+        <div class="row detContainer1 analyticsContainer" >
           <div id="binClearChart"></div>
         </div>
+      </div>
+
+      <div class="fourthSec container-fluid"  data-aos="zoom-out-up">
+   <h3 class="supportHeader" data-aos="fade-down">Support</h3>
+           <div class="row detContainer1 supportContainer">
+          <div class="col-12 supPara" data-aos="zoom-in">
+            <p>For emergencies, issues, or queries, please contact our support team.</p>
+          </div>
+          <div class="handles chat col-6" data-aos="zoom-out-down" >
+            <a href="https://wa.me/916002293409"><img src="/assets/wa.png" class="social " alt="wa">Chat with us</a>
+          </div>
+           <div class="handles call col-6" data-aos="zoom-out-up">
+            <a href="tel:+918119041761"> <img src="/assets/hpne.png" class="social " alt="phone">Speak with Us</a>
+          </div>
+           <div class="handles feedback col-6" data-aos="zoom-out-down">
+            <a href=""> <img src="/assets/feedback.png" class="social " alt="feedback">Feedback</a>
+          </div>
+            <div class="handles email col-6" data-aos="zoom-out-up">
+            <a href="mailto:zeliangcodetch@gmail.com"> <img src="/assets/email.png" class="social " alt="email">Email</a>
+          </div>
+        </div>
+        </div>
+
       </div>
     </div>
 
     <br />
-    <footer class="footer mt-auto py-3">
-      <div class="container text-center">
+
+    <footer  class="footer mt-auto py-3"  >
+      <div class="container text-center" >
         <span class="text-muted">© 2024 Zeliang codetech Pvt Ltd</span>
         <a href="https://zeliangcodetech.com/"
           ><img class="image-fluid zc" src="./assets/zc.webp" alt="ZC"
@@ -98,5 +125,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script defer src="script.js"></script>
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+        AOS.init({
+  // Global settings:
+  disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+  startEvent: "DOMContentLoaded", // name of the event dispatched on the document, that AOS should initialize on
+  initClassName: "aos-init", // class applied after initialization
+  animatedClassName: "aos-animate", // class applied on animation
+  useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+  disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+  debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+  throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+
+  // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+  offset: 220, // offset (in px) from the original trigger point
+  delay: 0, // values from 0 to 3000, with step 50ms
+  duration: 600, // values from 0 to 3000, with step 50ms
+  easing: "ease", // default easing for AOS animations
+  once: false, // whether animation should happen only once - while scrolling down
+  mirror: false, // whether elements should animate out while scrolling past them
+  anchorPlacement: "top-bottom", // defines which position of the element regarding to window should trigger the animation
+});
+
+      </script>
   </body>
 </html>
