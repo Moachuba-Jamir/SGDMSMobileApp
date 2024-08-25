@@ -26,13 +26,13 @@ body {
 form {
   height: 500px;
   width: 310px;
-  background-color: rgba(41, 41, 41, 0.229);
+  background-color: rgba(16, 16, 16, 0.176);
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
   border-radius: 50px;
-  border: 2px solid rgba(205, 205, 205, 0.149);
+  border: 2px solid rgba(255, 255, 255, 0.149);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
   -webkit-border-radius: 50px;
@@ -42,8 +42,8 @@ form {
 }
 #loginForm {
   -webkit-box-shadow: 4px 10px 61px 0px rgba(156, 77, 195, 0.514);
-  -moz-box-shadow: 4px 10px 61px 0px rgba(12, 124, 90, 0.793);
-  box-shadow: 4px 10px 61px 0px rgba(3, 128, 115, 0.486);
+  -moz-box-shadow: 4px 10px 61px 0px rgba(100, 12, 124, 0.793);
+  box-shadow: 4px 10px 61px 0px rgba(67, 2, 63, 0.348);
   
 }
 form * {
@@ -94,7 +94,6 @@ button {
   margin-top: 50px;
   width: 100%;
   background-color: #36012d;
-
   color: #080710;
   padding: 15px 0;
   font-size: 25px;
@@ -107,6 +106,14 @@ button {
   -moz-border-radius: 10px !important;
   -ms-border-radius: 10px !important;
   -o-border-radius: 10px !important;
+  transition: all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -ms-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+}
+.btnActive{
+  background-color: #022849;
 }
 .social {
   margin-top: 30px;

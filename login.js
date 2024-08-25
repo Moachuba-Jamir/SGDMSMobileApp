@@ -3,6 +3,8 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    const btn = document.getElementById('loginBtn');
+    btn.classList.toggle('btnActive');
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 

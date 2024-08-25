@@ -4,6 +4,19 @@ var isBinFull = false;
 var isBinEmpty = true;
 var disposed = document.querySelector(".btn2");
 var currMonth = new Date().getMonth();
+
+const myPopup = new Popup({
+  id: "my-popup",
+  title: "Good Work!",
+  content: `
+       <div class="modalContainer container">
+        <div class="popup-content">
+        <h4 class="popupTitle"> Bin clear!</h4>
+          <p class="binClear">Your results have been updated.</p>
+        </div></div>`,
+});
+
+
 function getReadings(userId) {
   var count = [1, 2, 3, 4, 5];
   var button = document.querySelector(".btn2");
@@ -200,7 +213,7 @@ var options = {
       shade: "dark",
       type: "radial",
       shadeIntensity: 2,
-      gradientToColors: ["#C70039"],
+      gradientToColors: ["#e50800"],
       inverseColors: false,
       opacityFrom: 1,
       opacityTo: 1,
@@ -413,7 +426,8 @@ document.addEventListener("DOMContentLoaded", () => {
               });
 
             disposed.classList.add("disabled");
-            alert("You have successfully cleared the bin");
+            myPopup.show();
+            
           });
 
           switch (userId) {

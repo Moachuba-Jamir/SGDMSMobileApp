@@ -21,7 +21,10 @@ body {
     margin: 4px auto;
     box-shadow: /* Smallest glow */    0 0 100px rgba(79, 1, 48, 0.87);
     border-radius:400px ;
-    background-color: rgba(201,190,141,0.845);
+    /* background-color: rgba(201,190,141,0.845);
+     */
+  background: linear-gradient(150deg, #d1024073, #026360db);
+  
     margin-bottom: 10%;
     border-radius: 500px !important;
     -webkit-border-radius: 500px !important;
@@ -257,3 +260,41 @@ a{
   margin-right: 5px;
 
 }
+
+
+/* Overlay styling */
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(90%);
+}
+
+
+
+/* Popup content styling */
+.popup-content {
+  background: linear-gradient(135deg, #121212e0, #2a2a2a, #02603eb7) !important;
+  border-radius: 20px;
+  padding: 20px;
+  width: 10%;
+  max-width: 250px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+/* Content styling */
+.binClear {
+  font-size: 16px;
+  color: #ffffff !important;
+  margin-bottom: 50px;
+  line-height: 1.4;
+  font-weight: 300;
+  margin-top: -5% !important;
+}
+
