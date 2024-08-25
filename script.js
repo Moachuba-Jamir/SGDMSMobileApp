@@ -31,6 +31,31 @@ const logoutPop = new Popup({
         </div></div>`,
 });
 
+// notification permission 
+function reqNotification() {
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      console.log("notification permission granted!");
+    } else {
+      console.warn("user denied notification permissions")
+    }
+  })
+};
+
+
+function sendNotification(title, message) {
+  if (Notification.permission === "granted") {
+    var notification = new Notification(title, {
+      body: message, // Optional: Replace with the path to your icon
+    });
+
+    notification.onclick = function () {
+      window.focus();
+      this.close();
+    };
+  }
+}
+
 function getReadings(userId) {
   var count = [1, 2, 3, 4, 5];
   var button = document.querySelector(".btn2");
@@ -337,6 +362,7 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
   // localStorage.removeItem("name");
   document.querySelector(".no").addEventListener("click", () => {
     logoutPop.hide();
+    sendNotification();
   });
   document.querySelector(".yes").addEventListener("click", () => {
     localStorage.removeItem("isLoggedIn");
@@ -347,6 +373,7 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+ 
   localStorage.removeItem("analytics"); // Add this line
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   var myDriverAnalytics = [];
@@ -541,3 +568,79 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+// Check if the browser supports notifications
+if ('Notification' in window) {
+  console.log('Notification API is supported.');
+
+  // Check the current notification permission status
+  if (Notification.permission === 'granted') {
+    console.log('Permission already granted.');
+    showNotification();
+  } else if (Notification.permission === 'denied') {
+    console.log('Permission was previously denied.');
+  } else {
+    // Request permission from the user
+    Notification.requestPermission().then(permission => {
+      console.log('User responded with:', permission);
+
+      if (permission === 'granted') {
+        showNotification();
+      }
+    });
+  }
+} else {
+  console.log('This browser does not support notifications.');
+}
+
+function showNotification() {
+  // Check if notifications are supported
+  if (!("Notification" in window)) {
+    console.error("This browser does not support desktop notifications.");
+    return;
+  }
+
+  // Check for notification permission
+  if (Notification.permission === "granted") {
+    // Show the notification
+    const notification = new Notification("Hello!", {
+      body: "Thanks for allowing notifications.",
+    });
+
+    // Log when the notification is shown
+    notification.onshow = () => {
+      console.log("Notification shown!");
+    };
+
+    // Handle click event on notification
+    notification.onclick = () => {
+      window.focus();
+      notification.close();
+    };
+  } else if (Notification.permission !== "denied") {
+    // Request permission from the user
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        // Show the notification
+        const notification = new Notification("Hello!", {
+          body: "Thanks for allowing notifications.",
+        });
+
+        // Log when the notification is shown
+        notification.onshow = () => {
+          console.log("Notification shown!");
+        };
+
+        // Handle click event on notification
+        notification.onclick = () => {
+          window.focus();
+
+        };
+      } else {
+        console.log("Notification permission denied.");
+      }
+    });
+  } else {
+    console.log("Notification permission is denied.");
+  }
+}
