@@ -1,7 +1,6 @@
 var isBinFull = false;
 var isBinEmpty = true;
 var disposed = document.querySelector(".btn2");
-// var dataSeries = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var currMonth = new Date().getMonth();
 function getReadings(userId) {
   var count = [1, 2, 3, 4, 5];
@@ -316,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // initially load the analytics
   fetch(
-    `http://localhost:3000/driverAnalytics?userName=${localStorage.getItem(
+    `https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics?userName=${localStorage.getItem(
       "name"
     )}`
   )
@@ -378,7 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
               monthIndex: currMonth,
             };
 
-            fetch("http://localhost:3000/driverAnalytics", {
+            fetch("https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -476,47 +475,4 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "dashboard.html";
     }
   }
-
-  // //when disposed button is clicked
-  // disposed.addEventListener('click', () => {
-  //   // connect to db and post the readings
-  //   const data = {
-  //     userid: userId,
-  //     monthIndex: currMonth
-
-  //   }
-
-  //   // https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics
-  //   fetch("http://localhost:3000/driverAnalytics", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((response) => {
-  //       // Ensure we are working with JSON
-  //       return response.json().catch(() => {
-  //         throw new Error("Invalid JSON response");
-  //       });
-  //     })
-  //     .then((data) => {
-  //       console.log("from the post analytics front end:", data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error in POST request:", error);
-  //     });
-  //   // retrieve the updated value and update chart1
-
-  //   // Increment the value at the index representing the current month
-
-  //   chart1.updateSeries([
-  //     {
-  //       name: "Number of bins cleared",
-  //       data: [], // updated data
-  //     },
-  //   ]);
-  //   disposed.classList.add("disabled");
-  //   alert("You have successfully cleard the bin");
-  // })
 });
