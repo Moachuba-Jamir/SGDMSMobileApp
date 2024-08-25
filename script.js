@@ -1,3 +1,5 @@
+// ADD espreadings<30 to userId 1 and 5 in production 
+
 var isBinFull = false;
 var isBinEmpty = true;
 var disposed = document.querySelector(".btn2");
@@ -20,7 +22,7 @@ function getReadings(userId) {
           isBinFull = true;
         }
 
-        if (isBinFull && parseInt(data.message) < 30) {
+        if (isBinFull) {
           button.classList.remove("disabled");
           isBinEmpty = true;
           isBinFull = false;
