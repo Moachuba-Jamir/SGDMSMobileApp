@@ -1,4 +1,4 @@
-// ADD espreadings<30 to userId 1 and 5 in production 
+// ADD espreadings<30 to userId 1 and 5 in production
 
 var isBinFull = false;
 var isBinEmpty = true;
@@ -9,13 +9,27 @@ const myPopup = new Popup({
   id: "my-popup",
   title: "Good Work!",
   content: `
-       <div class="modalContainer container">
+       <div class="modalContainer container binClearContainer">
         <div class="popup-content">
         <h4 class="popupTitle"> Bin clear!</h4>
           <p class="binClear">Your results have been updated.</p>
         </div></div>`,
 });
 
+const logoutPop = new Popup({
+  id: "logout-popup",
+  title: "logOut popup",
+  content: `
+       <div class="modalContainer container logoutContainer">
+        <div class="popup-content">
+        <h5 >Sign out?</h5>
+          <p class="binClear">You will be redirected to the login page.</p>
+          <div class="userLogOut container">
+           <button class="btn btn-warning no myBtn"> No </button>
+           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          <button class="btn btn-danger yes myBtn"> Yes </button></div>
+        </div></div>`,
+});
 
 function getReadings(userId) {
   var count = [1, 2, 3, 4, 5];
@@ -131,7 +145,7 @@ function getReadings(userId) {
           isBinFull = true;
         }
 
-        if (isBinFull ) {
+        if (isBinFull) {
           button.classList.remove("disabled");
           isBinEmpty = true;
           isBinFull = false;
@@ -230,7 +244,7 @@ var optionsForDriver = {
   series: [
     {
       name: "Number of bins cleared",
-      data: [],
+      data: [0],
     },
   ],
   chart: {
@@ -249,7 +263,7 @@ var optionsForDriver = {
     type: "gradient",
     gradient: {
       shade: "light",
-      type: "horizontal",
+      type: "vertical",
       shadeIntensity: 0.5,
       gradientToColors: ["#50e3c2"], // to set gradient colors
       inverseColors: false,
@@ -276,7 +290,8 @@ var optionsForDriver = {
     ],
     labels: {
       style: {
-        colors: "#fff", // Set x-axis labels text color to white
+        colors: "#fff",
+        fontSize: "10px", // Set x-axis labels text color to white
         rotate: -45,
       },
     },
@@ -318,9 +333,17 @@ chart.render();
 chart1.render();
 
 document.querySelector(".logoutBtn").addEventListener("click", () => {
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("name");
-  window.location.href = "index.html";
+  // localStorage.removeItem("isLoggedIn");
+  // localStorage.removeItem("name");
+  document.querySelector(".no").addEventListener("click", () => {
+    logoutPop.hide();
+  });
+  document.querySelector(".yes").addEventListener("click", () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("name");
+    window.location.href = "index.html";
+  });
+  logoutPop.show();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -345,12 +368,29 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("analytics", JSON.stringify(data.analytics[2024]));
         let analytics = localStorage.getItem("analytics");
         let pureAnalytics = JSON.parse(analytics);
-        chart1.updateSeries([
-          {
-            name: "Number of bins cleared",
-            data: pureAnalytics, // updated data
-          },
-        ]);
+        // Check if data is the driver object
+        if (data && data.driverName === user) {
+          console.log(`initial : ${data.analytics[2024]}`);
+          localStorage.setItem(
+            "analytics",
+            JSON.stringify(data.analytics[2024])
+          );
+          let analytics = localStorage.getItem("analytics");
+          let pureAnalytics = JSON.parse(analytics);
+
+          chart1.updateSeries([
+            {
+              name: "Number of bins cleared",
+              data: pureAnalytics, // updated data
+            },
+          ]);
+        } else
+          chart1.updateSeries([
+            {
+              name: "Number of bins cleared",
+              data: pureAnalytics, // updated data
+            },
+          ]);
       } else {
         console.error("Driver data not found or doesn't match the user");
       }
@@ -392,14 +432,17 @@ document.addEventListener("DOMContentLoaded", () => {
               monthIndex: currMonth,
             };
 
-            fetch("https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                credentials: "include",
-              },
-              body: JSON.stringify(data),
-            })
+            fetch(
+              "https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  credentials: "include",
+                },
+                body: JSON.stringify(data),
+              }
+            )
               .then((response) => response.json())
               .then((data) => {
                 console.log(
@@ -407,6 +450,10 @@ document.addEventListener("DOMContentLoaded", () => {
                   data.analytics[2024]
                 );
 
+                // mapping a null value if month has value 0 for better UI
+                //  let pureAnalytics = data.analytics[2024].map((value) =>
+                //    value === 0 ? null : value
+                //  );
                 chart1.updateSeries([
                   {
                     name: "Number of bins cleared",
@@ -427,7 +474,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             disposed.classList.add("disabled");
             myPopup.show();
-            
+            setTimeout(() => {
+              myPopup.hide();
+            }, 5000);
           });
 
           switch (userId) {

@@ -23,7 +23,7 @@ body {
     border-radius:400px ;
     /* background-color: rgba(201,190,141,0.845);
      */
-  background: linear-gradient(150deg, #d1024073, #026360db);
+  background: linear-gradient(150deg, #c8013d95, #024e63db);
   
     margin-bottom: 10%;
     border-radius: 500px !important;
@@ -240,7 +240,7 @@ body {
   align-items: center;
   margin-top: 20px;
   margin-bottom: 30px;
-  background-color: rgba(69, 188, 150, 0.105);
+  background-color: rgba(146, 188, 69, 0.152);
   padding-block: 5%;
 }
 
@@ -288,6 +288,10 @@ a{
   -o-border-radius: 20px;
 }
 
+.binClearContainer{
+  height: 60px !important;
+}
+
 /* Content styling */
 .binClear {
   font-size: 16px;
@@ -297,4 +301,34 @@ a{
   font-weight: 300;
   margin-top: -5% !important;
 }
+.userLogOut{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100px !important;
+}
+.myBtn{
+  width: 70px !important;
+  height: 40px !important;
+}
+.no{
+  margin-right: 10% !important;
+  background-color: rgba(3, 164, 111, 0.778) !important;
+}
+.yes{
+  margin-right: 10% !important;
+  background-color: rgba(182, 56, 3, 0.719) !important;
+}
+.logoutContainer{
+  height:120px;
+}
+.megaContainer{
+  background-color: rgba(2, 116, 112, 0.121);
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
 
+}
