@@ -4,6 +4,10 @@ var isBinFull = false;
 var isBinEmpty = true;
 var disposed = document.querySelector(".btn2");
 var currMonth = new Date().getMonth();
+localStorage.setItem('userNotification', "false");
+localStorage.setItem('isNotified', "false");
+localStorage.setItem("isDataFetched", "false");
+
 
 const myPopup = new Popup({
   id: "my-popup",
@@ -31,36 +35,98 @@ const logoutPop = new Popup({
         </div></div>`,
 });
 
-// notification permission 
-function reqNotification() {
-  Notification.requestPermission().then((permission) => {
-    if (permission === "granted") {
-      console.log("notification permission granted!");
+function notificationPermission() {
+  // ask for notification from user
+  if ("Notification" in window) {
+    console.log("Notification API is supported.");
+
+    // Check the current notification permission status
+    if (Notification.permission === "granted") {
+      console.log("Permission already granted.");
+    } else if (Notification.permission === "denied") {
+      console.log("Permission was previously denied.");
     } else {
-      console.warn("user denied notification permissions")
+      // Request permission from the user
+      Notification.requestPermission().then((permission) => {
+        console.log("User responded with:", permission);
+
+        if (permission === "granted") {
+          console.log('permission is granted');
+        }
+      });
     }
-  })
-};
-
-
-function sendNotification(title, message) {
-  if (Notification.permission === "granted") {
-    var notification = new Notification(title, {
-      body: message, // Optional: Replace with the path to your icon
-    });
-
-    notification.onclick = function () {
-      window.focus();
-      this.close();
-    };
+  } else {
+    console.log("This browser does not support notifications.");
   }
 }
+
+if (localStorage.getItem('userNotification') === "false") {
+  notificationPermission();
+  localStorage.setItem('userNotification', "true");
+}
+  
+
+
+function showNotification() {
+  // Check if notifications are supported
+  if (!("Notification" in window)) {
+    console.error("This browser does not support desktop notifications.");
+    return;
+  }
+
+  // Check notification permission
+  if (Notification.permission === "granted") {
+    // Show the notification
+    const notification = new Notification("Hello!", {
+      body: "Thanks for allowing notifications."
+    });
+
+    notification.onshow = () => {
+      console.log("Notification shown!");
+    };
+
+    notification.onclick = () => {
+      window.focus();
+      setTimeout(() => {
+        notification.close();
+     },6000)
+    };
+  } else if (Notification.permission === "default") {
+    // Request permission from the user
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        const notification = new Notification("Hello!", {
+          body: "Thanks for allowing notifications.",
+        });
+
+        notification.onshow = () => {
+          console.log("Notification shown!");
+        };
+
+        notification.onclick = () => {
+          window.focus();
+          window.location.href = "/dashboard.html"
+         setTimeout(() => {
+           notification.close();
+         }, 5000);
+        };
+      } else {
+        console.log("Notification permission denied.");
+      }
+    });
+  } else {
+    console.log("Notification permission is denied.");
+  }
+}
+
+
+
 
 function getReadings(userId) {
   var count = [1, 2, 3, 4, 5];
   var button = document.querySelector(".btn2");
   if (userId === "01") {
-    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[0]}`)
+    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[0]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
@@ -72,6 +138,14 @@ function getReadings(userId) {
         if (parseInt(data.message) > 80) {
           isBinEmpty = false;
           isBinFull = true;
+          if (localStorage.getItem("isNotified") === "false") {
+            showNotification();
+            localStorage.setItem("isNotified", "true");
+          } else {
+            setInterval(() => {
+              showNotification();
+            }, 600000);
+          }
         }
 
         if (isBinFull) {
@@ -84,7 +158,7 @@ function getReadings(userId) {
         console.error("Error fetching data:", error);
       });
   } else if (userId === "02") {
-    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[1]}`)
+    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[1]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
@@ -108,7 +182,7 @@ function getReadings(userId) {
         console.error("Error fetching data:", error);
       });
   } else if (userId === "03") {
-    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[2]}`)
+    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[2]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
@@ -132,7 +206,7 @@ function getReadings(userId) {
         console.error("Error fetching data:", error);
       });
   } else if (userId === "04") {
-    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[3]}`)
+    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[3]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
@@ -156,7 +230,7 @@ function getReadings(userId) {
         console.error("Error fetching data:", error);
       });
   } else if (userId === "05") {
-    fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[4]}`)
+    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[4]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
@@ -358,29 +432,32 @@ chart.render();
 chart1.render();
 
 document.querySelector(".logoutBtn").addEventListener("click", () => {
+  
   // localStorage.removeItem("isLoggedIn");
   // localStorage.removeItem("name");
   document.querySelector(".no").addEventListener("click", () => {
     logoutPop.hide();
-    sendNotification();
   });
   document.querySelector(".yes").addEventListener("click", () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("name");
+    localStorage.removeItem('isNotified');
+    localStorage.removeItem('userNotification');
+    localStorage.removeItem('isDataFetched');
     window.location.href = "index.html";
   });
   logoutPop.show();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
- 
-  localStorage.removeItem("analytics"); // Add this line
+  localStorage.removeItem("analytics");
+
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   var myDriverAnalytics = [];
 
   // initially load the analytics
   fetch(
-    `https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics?userName=${localStorage.getItem(
+    `https://backend-for-sgdms-1.onrender.com/driverAnalytics?userName=${localStorage.getItem(
       "name"
     )}`
   )
@@ -435,7 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("driverName").innerHTML = user;
 
-    fetch("https://backend-for-sgdms-1-tkoe.onrender.com/bins")
+    fetch("https://backend-for-sgdms-1.onrender.com/bins")
       .then((response) => response.json())
       .then((data) => {
         console.log("Data fetched:", data);
@@ -460,7 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
             fetch(
-              "https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics",
+              "https://backend-for-sgdms-1.onrender.com/driverAnalytics",
               {
                 method: "POST",
                 headers: {
@@ -508,29 +585,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
           switch (userId) {
             case "01":
-              setInterval(() => {
+              if (localStorage.getItem('isDataFetched') === "false") {
                 getReadings(userId);
-              }, 5000);
+                localStorage.setItem("isDataFetched", "true");
+              } else {
+                 setInterval(() => {
+                   getReadings(userId);
+                 }, 600000);
+              }
               break;
             case "02":
-              setInterval(() => {
-                getReadings(userId);
-              }, 5000);
+               if (localStorage.getItem("isDataFetched") === "false") {
+                 getReadings(userId);
+                 localStorage.setItem("isDataFetched", "true");
+               } else {
+                 setInterval(() => {
+                   getReadings(userId);
+                 }, 600000);
+               }
               break;
             case "03":
-              setInterval(() => {
-                getReadings(userId);
-              }, 5000);
+             if (localStorage.getItem("isDataFetched") === "false") {
+               getReadings(userId);
+               localStorage.setItem("isDataFetched", "true");
+             } else {
+               setInterval(() => {
+                 getReadings(userId);
+               }, 600000);
+             }
               break;
             case "04":
-              setInterval(() => {
+              if (localStorage.getItem("isDataFetched") === "false") {
                 getReadings(userId);
-              }, 5000);
+                localStorage.setItem("isDataFetched", "true");
+              } else {
+                setInterval(() => {
+                  getReadings(userId);
+                }, 600000);
+              }
               break;
             case "05":
-              setInterval(() => {
-                getReadings(userId);
-              }, 5000);
+               if (localStorage.getItem("isDataFetched") === "false") {
+                 getReadings(userId);
+                 localStorage.setItem("isDataFetched", "true");
+               } else {
+                 setInterval(() => {
+                   getReadings(userId);
+                 }, 600000);
+               }
               break;
             default:
               console.warn("NO such endpoints for esp readings ");
@@ -569,78 +671,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Check if the browser supports notifications
-if ('Notification' in window) {
-  console.log('Notification API is supported.');
 
-  // Check the current notification permission status
-  if (Notification.permission === 'granted') {
-    console.log('Permission already granted.');
-    showNotification();
-  } else if (Notification.permission === 'denied') {
-    console.log('Permission was previously denied.');
-  } else {
-    // Request permission from the user
-    Notification.requestPermission().then(permission => {
-      console.log('User responded with:', permission);
 
-      if (permission === 'granted') {
-        showNotification();
-      }
-    });
-  }
-} else {
-  console.log('This browser does not support notifications.');
-}
-
-function showNotification() {
-  // Check if notifications are supported
-  if (!("Notification" in window)) {
-    console.error("This browser does not support desktop notifications.");
-    return;
-  }
-
-  // Check for notification permission
-  if (Notification.permission === "granted") {
-    // Show the notification
-    const notification = new Notification("Hello!", {
-      body: "Thanks for allowing notifications.",
-    });
-
-    // Log when the notification is shown
-    notification.onshow = () => {
-      console.log("Notification shown!");
-    };
-
-    // Handle click event on notification
-    notification.onclick = () => {
-      window.focus();
-      notification.close();
-    };
-  } else if (Notification.permission !== "denied") {
-    // Request permission from the user
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        // Show the notification
-        const notification = new Notification("Hello!", {
-          body: "Thanks for allowing notifications.",
-        });
-
-        // Log when the notification is shown
-        notification.onshow = () => {
-          console.log("Notification shown!");
-        };
-
-        // Handle click event on notification
-        notification.onclick = () => {
-          window.focus();
-
-        };
-      } else {
-        console.log("Notification permission denied.");
-      }
-    });
-  } else {
-    console.log("Notification permission is denied.");
-  }
-}

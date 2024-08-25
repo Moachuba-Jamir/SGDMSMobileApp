@@ -12,7 +12,7 @@ document
       // Check that both fields are filled
       try {
         const response = await fetch(
-          "https://backend-for-sgdms-1-tkoe.onrender.com/login",
+          "https://backend-for-sgdms-1.onrender.com/login",
           {
             method: "POST",
             headers: {
