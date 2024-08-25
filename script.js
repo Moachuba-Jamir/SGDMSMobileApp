@@ -7,18 +7,18 @@ var currMonth = new Date().getMonth();
 
 const myPopup = new Popup({
   id: "my-popup",
-  title: "Good Work!",
+  title: "",
   content: `
        <div class="modalContainer container binClearContainer">
-        <div class="popup-content">
-        <h4 class="popupTitle"> Bin clear!</h4>
-          <p class="binClear">Your results have been updated.</p>
+        <div class=" popup-content disposed-content">
+        <h4 class="popupTitle"> <img src="/assets/binClear.png" class="binClearLogo"/> Bin clear!</h4>
+          <p class="binClear">Your results have been updated. Checkout the results graph for more information</p>
         </div></div>`,
 });
 
 const logoutPop = new Popup({
   id: "logout-popup",
-  title: "logOut popup",
+  title: "",
   content: `
        <div class="modalContainer container logoutContainer">
         <div class="popup-content">
