@@ -24,7 +24,7 @@ body {
 }
 
 form {
-  height: 470px;
+  height: 500px;
   width: 310px;
   background-color: rgba(41, 41, 41, 0.229);
   position: absolute;
@@ -136,9 +136,8 @@ button {
   text-align: center;
   margin-top: 5%;
   font-family: gotham;
-  color: rgb(197, 23, 23);
-  text-decoration: overline;
-  text-decoration: overline;
+  color: rgb(105, 0, 0);
+  font-size: .8ren;
 }
 
 .closedEye {
