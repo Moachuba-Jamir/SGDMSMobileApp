@@ -1,14 +1,31 @@
+var isBinFull = false;
+var isBinEmpty = true;
+var disposed = document.querySelector(".btn2");
+// var dataSeries = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var currMonth = new Date().getMonth();
 function getReadings(userId) {
   var count = [1, 2, 3, 4, 5];
+  var button = document.querySelector(".btn2");
   if (userId === "01") {
     fetch(`https://backend-for-sgdms-1-tkoe.onrender.com/esp${count[0]}`)
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
-      .then(({ message }) => {
+      .then((data) => {
         // update the fill level from here
-        console.log(`from chart.js ${message}`);
-        chart.updateSeries([parseInt(message)]);
+        console.log(`from chart.js ${data.message}`);
+        chart.updateSeries([parseInt(data.message)]);
+
+        if (parseInt(data.message) > 80) {
+          isBinEmpty = false;
+          isBinFull = true;
+        }
+
+        if (isBinFull && parseInt(data.message) < 30) {
+          button.classList.remove("disabled");
+          isBinEmpty = true;
+          isBinFull = false;
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -18,10 +35,21 @@ function getReadings(userId) {
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
-      .then(({ message }) => {
+      .then((data) => {
         // update the fill level from here
-        console.log(`from chart.js ${message}`);
-        chart.updateSeries([parseInt(message)]);
+        console.log(`from chart.js ${data.message}`);
+        chart.updateSeries([parseInt(data.message)]);
+
+        if (parseInt(data.message) > 80) {
+          isBinEmpty = false;
+          isBinFull = true;
+        }
+
+        if (isBinFull && parseInt(data.message) < 30) {
+          button.classList.remove("disabled");
+          isBinEmpty = true;
+          isBinFull = false;
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -31,10 +59,21 @@ function getReadings(userId) {
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
-      .then(({ message }) => {
+      .then((data) => {
         // update the fill level from here
-        console.log(`from chart.js ${message}`);
-        chart.updateSeries([parseInt(message)]);
+        console.log(`from chart.js ${data.message}`);
+        chart.updateSeries([parseInt(data.message)]);
+
+        if (parseInt(data.message) > 80) {
+          isBinEmpty = false;
+          isBinFull = true;
+        }
+
+        if (isBinFull && parseInt(data.message) < 30) {
+          button.classList.remove("disabled");
+          isBinEmpty = true;
+          isBinFull = false;
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -44,10 +83,21 @@ function getReadings(userId) {
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
-      .then(({ message }) => {
+      .then((data) => {
         // update the fill level from here
-        console.log(`from chart.js ${message}`);
-        chart.updateSeries([parseInt(message)]);
+        console.log(`from chart.js ${data.message}`);
+        chart.updateSeries([parseInt(data.message)]);
+
+        if (parseInt(data.message) > 80) {
+          isBinEmpty = false;
+          isBinFull = true;
+        }
+
+        if (isBinFull && parseInt(data.message) < 30) {
+          button.classList.remove("disabled");
+          isBinEmpty = true;
+          isBinFull = false;
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -57,10 +107,21 @@ function getReadings(userId) {
       .then((res) => {
         return res.json(); // Ensure the response is returned as JSON
       })
-      .then(({ message }) => {
+      .then((data) => {
         // update the fill level from here
-        console.log(`from chart.js ${message}`);
-        chart.updateSeries([parseInt(message)]);
+        console.log(`from chart.js ${data.message}`);
+        chart.updateSeries([parseInt(data.message)]);
+
+        if (parseInt(data.message) > 80) {
+          isBinEmpty = false;
+          isBinFull = true;
+        }
+
+        if (isBinFull ) {
+          button.classList.remove("disabled");
+          isBinEmpty = true;
+          isBinFull = false;
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -155,7 +216,7 @@ var optionsForDriver = {
   series: [
     {
       name: "Number of bins cleared",
-      data: [0, 5],
+      data: [],
     },
   ],
   chart: {
@@ -185,7 +246,20 @@ var optionsForDriver = {
   },
   xaxis: {
     type: "category",
-    categories: [],
+    categories: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
     labels: {
       style: {
         colors: "#fff", // Set x-axis labels text color to white
@@ -195,7 +269,7 @@ var optionsForDriver = {
   },
   yaxis: {
     title: {
-      text: "Net Bins cleared",
+      text: "Total Bins cleared",
       style: {
         color: "#fff", // Set y-axis title color to white
       },
@@ -236,7 +310,40 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  localStorage.removeItem("analytics"); // Add this line
   const isLoggedIn = localStorage.getItem("isLoggedIn");
+  var myDriverAnalytics = [];
+
+  // initially load the analytics
+  fetch(
+    `http://localhost:3000/driverAnalytics?userName=${localStorage.getItem(
+      "name"
+    )}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("from the post analytics initial:", data);
+      let user = localStorage.getItem("name");
+
+      // Check if data is the driver object
+      if (data && data.driverName === user) {
+        console.log(`initial : ${data.analytics[2024]}`);
+        localStorage.setItem("analytics", JSON.stringify(data.analytics[2024]));
+        let analytics = localStorage.getItem("analytics");
+        let pureAnalytics = JSON.parse(analytics);
+        chart1.updateSeries([
+          {
+            name: "Number of bins cleared",
+            data: pureAnalytics, // updated data
+          },
+        ]);
+      } else {
+        console.error("Driver data not found or doesn't match the user");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching driver analytics:", error);
+    });
 
   if (!isLoggedIn) {
     // Redirect to login(index) page if not logged in
@@ -259,6 +366,55 @@ document.addEventListener("DOMContentLoaded", () => {
         if (driver) {
           // Get userId
           const userId = driver.id;
+          console.log(userId);
+          // Attach the event listener only after userId is set
+          disposed.addEventListener("click", () => {
+            if (!userId) {
+              console.error("userId is undefined");
+              return;
+            }
+            const data = {
+              userId: userId,
+              monthIndex: currMonth,
+            };
+
+            fetch("http://localhost:3000/driverAnalytics", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                credentials: "include",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(
+                  "from the post analytics front end:",
+                  data.analytics[2024]
+                );
+
+                chart1.updateSeries([
+                  {
+                    name: "Number of bins cleared",
+                    data: data.analytics[2024], // updated data
+                  },
+                ]);
+                // Add these lines
+                localStorage.setItem(
+                  "analytics",
+                  JSON.stringify(data.analytics[2024])
+                );
+
+                console.log(`Is this the driver : ${myDriverAnalytics}`);
+              })
+              .catch((error) => {
+                console.error("Error in POST request:", error);
+              });
+
+            disposed.classList.add("disabled");
+            alert("You have successfully cleared the bin");
+          });
+
           switch (userId) {
             case "01":
               setInterval(() => {
@@ -320,4 +476,47 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "dashboard.html";
     }
   }
+
+  // //when disposed button is clicked
+  // disposed.addEventListener('click', () => {
+  //   // connect to db and post the readings
+  //   const data = {
+  //     userid: userId,
+  //     monthIndex: currMonth
+
+  //   }
+
+  //   // https://backend-for-sgdms-1-tkoe.onrender.com/driverAnalytics
+  //   fetch("http://localhost:3000/driverAnalytics", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((response) => {
+  //       // Ensure we are working with JSON
+  //       return response.json().catch(() => {
+  //         throw new Error("Invalid JSON response");
+  //       });
+  //     })
+  //     .then((data) => {
+  //       console.log("from the post analytics front end:", data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error in POST request:", error);
+  //     });
+  //   // retrieve the updated value and update chart1
+
+  //   // Increment the value at the index representing the current month
+
+  //   chart1.updateSeries([
+  //     {
+  //       name: "Number of bins cleared",
+  //       data: [], // updated data
+  //     },
+  //   ]);
+  //   disposed.classList.add("disabled");
+  //   alert("You have successfully cleard the bin");
+  // })
 });

@@ -149,8 +149,8 @@ body {
     height: 30px !important;
     width: 30px !important;
     margin-left: auto;
-    filter: grayscale(90%);
-    -webkit-filter: grayscale(90%);
+    filter: grayscale(96%);
+    -webkit-filter: grayscale(96%);
 }
 .locationLogo{
   height: 50px;
@@ -175,7 +175,7 @@ body {
   font-family: gotham;
 }
 .secondSec{
-    margin-top: 5% !important;
+    margin-top: 2% !important;
 }
 
 .greet {

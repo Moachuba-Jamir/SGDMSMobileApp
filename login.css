@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 body {
-  background: rgb(3, 6, 26) !important ;
+  background: #05000b !important ;
 }
 .background {
   width: 430px;
@@ -41,9 +41,9 @@ form {
   -o-border-radius: 50px;
 }
 #loginForm {
-  -webkit-box-shadow: 4px 10px 61px 0px rgba(77, 195, 164, 0.514);
+  -webkit-box-shadow: 4px 10px 61px 0px rgba(156, 77, 195, 0.514);
   -moz-box-shadow: 4px 10px 61px 0px rgba(12, 124, 90, 0.793);
-  box-shadow: 4px 10px 61px 0px rgba(1, 111, 89, 0.579);
+  box-shadow: 4px 10px 61px 0px rgba(3, 128, 115, 0.486);
   
 }
 form * {
