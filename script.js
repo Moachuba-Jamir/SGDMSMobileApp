@@ -1,13 +1,10 @@
 // ADD espreadings<30 to userId 1 and 5 in production
-
+// readings for esp 1 is configured to perfom click actions for development purposed ..  should be modified in porduction 
 var isBinFull = false;
 var isBinEmpty = true;
 var disposed = document.querySelector(".btn2");
 var currMonth = new Date().getMonth();
-localStorage.setItem('userNotification', "false");
-localStorage.setItem('isNotified', "false");
 localStorage.setItem("isDataFetched", "false");
-
 
 const myPopup = new Popup({
   id: "my-popup",
@@ -35,92 +32,88 @@ const logoutPop = new Popup({
         </div></div>`,
 });
 
-function notificationPermission() {
-  // ask for notification from user
-  if ("Notification" in window) {
-    console.log("Notification API is supported.");
+// function notificationPermission() {
+//   // ask for notification from user
+//   if ("Notification" in window) {
+//     console.log("Notification API is supported.");
 
-    // Check the current notification permission status
-    if (Notification.permission === "granted") {
-      console.log("Permission already granted.");
-    } else if (Notification.permission === "denied") {
-      console.log("Permission was previously denied.");
-    } else {
-      // Request permission from the user
-      Notification.requestPermission().then((permission) => {
-        console.log("User responded with:", permission);
+//     // Check the current notification permission status
+//     if (Notification.permission === "granted") {
+//       console.log("Permission already granted.");
+//     } else if (Notification.permission === "denied") {
+//       console.log("Permission was previously denied.");
+//     } else {
+//       // Request permission from the user
+//       Notification.requestPermission().then((permission) => {
+//         console.log("User responded with:", permission);
 
-        if (permission === "granted") {
-          console.log('permission is granted');
-        }
-      });
-    }
-  } else {
-    console.log("This browser does not support notifications.");
-  }
-}
+//         if (permission === "granted") {
+//           console.log('permission is granted');
+//         }
+//       });
+//     }
+//   } else {
+//     console.log("This browser does not support notifications.");
+//   }
+// }
 
-if (localStorage.getItem('userNotification') === "false") {
-  notificationPermission();
-  localStorage.setItem('userNotification', "true");
-}
-  
+// if (localStorage.getItem('userNotification') === "false") {
+//   notificationPermission();
+//   localStorage.setItem('userNotification', "true");
+// }
 
+// function showNotification() {
+//   // Check if notifications are supported
+//   if (!("Notification" in window)) {
+//     console.error("This browser does not support desktop notifications.");
+//     return;
+//   }
 
-function showNotification() {
-  // Check if notifications are supported
-  if (!("Notification" in window)) {
-    console.error("This browser does not support desktop notifications.");
-    return;
-  }
+//   // Check notification permission
+//   if (Notification.permission === "granted") {
+//     // Show the notification
+//     const notification = new Notification("SGDMS!", {
+//       body: "Hey your bin is full Kindly go and dispose ",
+//       icon: "/assets/logo.png"
+//     });
 
-  // Check notification permission
-  if (Notification.permission === "granted") {
-    // Show the notification
-    const notification = new Notification("Hello!", {
-      body: "Thanks for allowing notifications."
-    });
+//     notification.onshow = () => {
+//       console.log("Notification shown!");
+//     };
 
-    notification.onshow = () => {
-      console.log("Notification shown!");
-    };
+//     notification.onclick = () => {
+//       window.focus();
+//       setTimeout(() => {
+//         notification.close();
+//      },6000)
+//     };
+//   } else if (Notification.permission === "default") {
+//     // Request permission from the user
+//     Notification.requestPermission().then((permission) => {
+//       if (permission === "granted") {
+//         const notification = new Notification("Hello!", {
+//           body: "Thanks for allowing notifications.",
+//         });
 
-    notification.onclick = () => {
-      window.focus();
-      setTimeout(() => {
-        notification.close();
-     },6000)
-    };
-  } else if (Notification.permission === "default") {
-    // Request permission from the user
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        const notification = new Notification("Hello!", {
-          body: "Thanks for allowing notifications.",
-        });
+//         notification.onshow = () => {
+//           console.log("Notification shown!");
+//         };
 
-        notification.onshow = () => {
-          console.log("Notification shown!");
-        };
-
-        notification.onclick = () => {
-          window.focus();
-          window.location.href = "/dashboard.html"
-         setTimeout(() => {
-           notification.close();
-         }, 5000);
-        };
-      } else {
-        console.log("Notification permission denied.");
-      }
-    });
-  } else {
-    console.log("Notification permission is denied.");
-  }
-}
-
-
-
+//         notification.onclick = () => {
+//           window.focus();
+//           window.location.href = "/dashboard.html"
+//          setTimeout(() => {
+//            notification.close();
+//          }, 5000);
+//         };
+//       } else {
+//         console.log("Notification permission denied.");
+//       }
+//     });
+//   } else {
+//     console.log("Notification permission is denied.");
+//   }
+// }
 
 function getReadings(userId) {
   var count = [1, 2, 3, 4, 5];
@@ -135,24 +128,17 @@ function getReadings(userId) {
         console.log(`from chart.js ${data.message}`);
         chart.updateSeries([parseInt(data.message)]);
 
-        if (parseInt(data.message) > 80) {
-          isBinEmpty = false;
-          isBinFull = true;
-          if (localStorage.getItem("isNotified") === "false") {
-            showNotification();
-            localStorage.setItem("isNotified", "true");
-          } else {
-            setInterval(() => {
-              showNotification();
-            }, 600000);
+          if (parseInt(data.message) > 80) {
+            isBinEmpty = false;
+            isBinFull = true;
+             button.classList.remove("disabled");
           }
-        }
 
-        if (isBinFull) {
-          button.classList.remove("disabled");
-          isBinEmpty = true;
-          isBinFull = false;
-        }
+          if (isBinFull && parseInt(data.message) < 30) {
+           
+            isBinEmpty = true;
+            isBinFull = false;
+          }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -191,16 +177,17 @@ function getReadings(userId) {
         console.log(`from chart.js ${data.message}`);
         chart.updateSeries([parseInt(data.message)]);
 
-        if (parseInt(data.message) > 80) {
-          isBinEmpty = false;
-          isBinFull = true;
-        }
+    
+          if (parseInt(data.message) > 80) {
+            isBinEmpty = false;
+            isBinFull = true;
+          }
 
-        if (isBinFull && parseInt(data.message) < 30) {
-          button.classList.remove("disabled");
-          isBinEmpty = true;
-          isBinFull = false;
-        }
+          if (isBinFull && parseInt(data.message) < 30) {
+            button.classList.remove("disabled");
+            isBinEmpty = true;
+            isBinFull = false;
+          }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -215,16 +202,17 @@ function getReadings(userId) {
         console.log(`from chart.js ${data.message}`);
         chart.updateSeries([parseInt(data.message)]);
 
-        if (parseInt(data.message) > 80) {
-          isBinEmpty = false;
-          isBinFull = true;
-        }
+  
+          if (parseInt(data.message) > 80) {
+            isBinEmpty = false;
+            isBinFull = true;
+          }
 
-        if (isBinFull && parseInt(data.message) < 30) {
-          button.classList.remove("disabled");
-          isBinEmpty = true;
-          isBinFull = false;
-        }
+          if (isBinFull && parseInt(data.message) < 30) {
+            button.classList.remove("disabled");
+            isBinEmpty = true;
+            isBinFull = false;
+          }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -239,16 +227,17 @@ function getReadings(userId) {
         console.log(`from chart.js ${data.message}`);
         chart.updateSeries([parseInt(data.message)]);
 
-        if (parseInt(data.message) > 80) {
-          isBinEmpty = false;
-          isBinFull = true;
-        }
+     
+          if (parseInt(data.message) > 80) {
+            isBinEmpty = false;
+            isBinFull = true;
+          }
 
-        if (isBinFull) {
-          button.classList.remove("disabled");
-          isBinEmpty = true;
-          isBinFull = false;
-        }
+          if (isBinFull && parseInt(data.message) < 30) {
+            button.classList.remove("disabled");
+            isBinEmpty = true;
+            isBinFull = false;
+          }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -432,18 +421,15 @@ chart.render();
 chart1.render();
 
 document.querySelector(".logoutBtn").addEventListener("click", () => {
-  
-  // localStorage.removeItem("isLoggedIn");
-  // localStorage.removeItem("name");
   document.querySelector(".no").addEventListener("click", () => {
     logoutPop.hide();
   });
+
+  // on log out 
   document.querySelector(".yes").addEventListener("click", () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("name");
-    localStorage.removeItem('isNotified');
-    localStorage.removeItem('userNotification');
-    localStorage.removeItem('isDataFetched');
+    localStorage.removeItem("isDataFetched");
     window.location.href = "index.html";
   });
   logoutPop.show();
@@ -536,46 +522,34 @@ document.addEventListener("DOMContentLoaded", () => {
               monthIndex: currMonth,
             };
 
-            fetch(
-              "https://backend-for-sgdms-1.onrender.com/driverAnalytics",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  credentials: "include",
-                },
-                body: JSON.stringify(data),
-              }
-            )
+            fetch("https://backend-for-sgdms-1.onrender.com/driverAnalytics", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                credentials: "include",
+              },
+              body: JSON.stringify(data),
+            })
               .then((response) => response.json())
               .then((data) => {
                 console.log(
                   "from the post analytics front end:",
                   data.analytics[2024]
                 );
-
-                // mapping a null value if month has value 0 for better UI
-                //  let pureAnalytics = data.analytics[2024].map((value) =>
-                //    value === 0 ? null : value
-                //  );
                 chart1.updateSeries([
                   {
                     name: "Number of bins cleared",
                     data: data.analytics[2024], // updated data
                   },
                 ]);
-                // Add these lines
                 localStorage.setItem(
                   "analytics",
                   JSON.stringify(data.analytics[2024])
                 );
-
-                console.log(`Is this the driver : ${myDriverAnalytics}`);
               })
               .catch((error) => {
                 console.error("Error in POST request:", error);
               });
-
             disposed.classList.add("disabled");
             myPopup.show();
             setTimeout(() => {
@@ -585,34 +559,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
           switch (userId) {
             case "01":
-              if (localStorage.getItem('isDataFetched') === "false") {
+              if (localStorage.getItem("isDataFetched") === "false") {
                 getReadings(userId);
                 localStorage.setItem("isDataFetched", "true");
               } else {
-                 setInterval(() => {
-                   getReadings(userId);
-                 }, 600000);
+                setInterval(() => {
+                  getReadings(userId);
+                }, 60000);
               }
               break;
             case "02":
-               if (localStorage.getItem("isDataFetched") === "false") {
-                 getReadings(userId);
-                 localStorage.setItem("isDataFetched", "true");
-               } else {
-                 setInterval(() => {
-                   getReadings(userId);
-                 }, 600000);
-               }
+              if (localStorage.getItem("isDataFetched") === "false") {
+                getReadings(userId);
+                localStorage.setItem("isDataFetched", "true");
+              } else {
+                setInterval(() => {
+                  getReadings(userId);
+                }, 60000);
+              }
               break;
             case "03":
-             if (localStorage.getItem("isDataFetched") === "false") {
-               getReadings(userId);
-               localStorage.setItem("isDataFetched", "true");
-             } else {
-               setInterval(() => {
-                 getReadings(userId);
-               }, 600000);
-             }
+              if (localStorage.getItem("isDataFetched") === "false") {
+                getReadings(userId);
+                localStorage.setItem("isDataFetched", "true");
+              } else {
+                setInterval(() => {
+                  getReadings(userId);
+                }, 60000);
+              }
               break;
             case "04":
               if (localStorage.getItem("isDataFetched") === "false") {
@@ -621,18 +595,18 @@ document.addEventListener("DOMContentLoaded", () => {
               } else {
                 setInterval(() => {
                   getReadings(userId);
-                }, 600000);
+                }, 60000);
               }
               break;
             case "05":
-               if (localStorage.getItem("isDataFetched") === "false") {
-                 getReadings(userId);
-                 localStorage.setItem("isDataFetched", "true");
-               } else {
-                 setInterval(() => {
-                   getReadings(userId);
-                 }, 600000);
-               }
+              if (localStorage.getItem("isDataFetched") === "false") {
+                getReadings(userId);
+                localStorage.setItem("isDataFetched", "true");
+              } else {
+                setInterval(() => {
+                  getReadings(userId);
+                }, 60000);
+              }
               break;
             default:
               console.warn("NO such endpoints for esp readings ");
@@ -663,6 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error fetching data:", error);
       });
   }
+
   if (isLoggedIn === "true") {
     // Redirect to dashboard if already logged in
     if (window.location.pathname !== "/dashboard.html") {
@@ -670,6 +645,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
-
-
-
