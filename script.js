@@ -337,6 +337,16 @@ var optionsForDriver = {
       data: [0],
     },
   ],
+  title: {
+    text: `Total bins cleared (Monthly)`,
+    style: {
+      fontSize: "14px",
+      fontFamily: "Gotham, Arial, sans-serif",
+      padding: {
+        left: 15
+      }
+    },
+  },
   chart: {
     type: "area",
     height: 200,
@@ -388,7 +398,7 @@ var optionsForDriver = {
   },
   yaxis: {
     title: {
-      text: "Total Bins cleared",
+      text: "",
       style: {
         color: "#fff", // Set y-axis title color to white
       },
@@ -458,7 +468,7 @@ const overallBinClearance = {
     labels: {
       style: {
         colors: "#fff", // White color for X-axis labels
-        fontSize: "8px",
+        fontSize: "9px",
       },
     },
   },
@@ -471,11 +481,14 @@ const overallBinClearance = {
     },
   },
   title: {
-    text: `Annual bin clearance per location ( ${date.getFullYear()} ) `,
+    text: `Bin clearance per location ( ${date.getFullYear()} ) `,
     style: {
       color: "#fff", // White color for the title
-      fontSize: "16px",
-      fontWeight: "bold",
+      fontSize: "14px",
+      fontFamily: "Gotham, Arial, sans-serif",
+      padding: {
+        left: 15
+      }
     },
   },
   tooltip: {
