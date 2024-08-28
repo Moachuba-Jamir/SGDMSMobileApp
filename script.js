@@ -620,6 +620,9 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(userId);
           // Attach the event listener only after userId is set
           disposed.addEventListener("click", () => {
+             document
+               .getElementById("target")
+               .scrollIntoView({ block: "start", behavior: "smooth" });
             if (!userId) {
               console.error("userId is undefined");
               return;
@@ -771,3 +774,7 @@ document.addEventListener("DOMContentLoaded", () => {
 setInterval(() => {
   window.location.reload();
 }, 300000);
+
+document.querySelector(".refresh").addEventListener('click', () => {
+  window.location.reload(); 
+});

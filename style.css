@@ -19,7 +19,7 @@ body {
 
 #chart {
     margin: 4px auto;
-    background-image: linear-gradient(to right, #fcc681, #fdfdfdce);
+    background-image: linear-gradient(to right, #fcc781dc, #fdfdfdb0);
     box-shadow: 0 0 10px rgb(199, 164, 8), 0 0 20px rgba(79, 1, 48, 0.6), 0 0 30px rgba(61, 1, 37, 0.788);
     border-radius:400px ;
     margin-bottom: 10%;
@@ -83,7 +83,7 @@ body {
 }
 .detContainer,
 .detContainer1 {
-   background-color: rgba(2, 116, 112, 0.121);
+  background-color: rgba(2, 116, 112, 0.121);
   border-radius: 20px;
   padding-top: 7%;
   padding-bottom: 10%;
@@ -317,7 +317,7 @@ a{
 }
 
 .megaContainer{
-  background-color: rgba(2, 77, 100, 0.164);
+ background-color: rgba(2, 116, 112, 0.121);
   border-radius: 30px;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
@@ -336,4 +336,63 @@ a{
 
 .binClearContainer{
   margin-top: 10%;
+}
+
+.refresh{
+  height: 30px;
+  width: 30px;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+
+@keyframes float {
+  0% {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+}
+  50% {
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
+}
+  100% {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+}
+}
+
+.image-float {
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes btnFloat {
+  0% {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
+  50% {
+    transform: translateX(-3px);
+    -webkit-transform: translateX(-3px);
+    -moz-transform: translateX(-3px);
+    -ms-transform: translateX(-3px);
+    -o-transform: translateX(-3px);
+}
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.btn-float {
+  animation: btnFloat 3s ease-in-out infinite;
+  -webkit-animation: btnFloat 3s ease-in-out infinite;
 }
