@@ -343,6 +343,7 @@ a{
   width: 30px;
   filter: invert(100%);
   -webkit-filter: invert(100%);
+  opacity: .6;
 }
 
 @keyframes float {
@@ -393,6 +394,6 @@ a{
 }
 
 .btn-float {
-  animation: btnFloat 3s ease-in-out infinite;
-  -webkit-animation: btnFloat 3s ease-in-out infinite;
+  animation: btnFloat 5s ease-in-out infinite;
+  -webkit-animation: btnFloat 5s ease-in-out infinite;
 }
