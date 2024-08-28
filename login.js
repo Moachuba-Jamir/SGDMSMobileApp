@@ -5,8 +5,8 @@ document
 
     const btn = document.getElementById('loginBtn');
     btn.classList.toggle('btnActive');
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
     if (username !== "" && password !== "") {
       // Check that both fields are filled
@@ -50,27 +50,16 @@ window.onload = function () {
   }
 };
 
-document.getElementById("password").addEventListener("change", function () {
-  const showPassElement = document.querySelector(".showPass");
-  const passIcon = document.querySelector(".showPass .pass");
-  var count = 1;
-  const passwordField = document.getElementById("password");
-  document.querySelector(".showPass").addEventListener("click", () => {
-    if (count == 1) {
-      // Show password
-      passwordField.type = "text";
-      passIcon.src = "/assets/pass.png"; // Change to the icon for hidden password
-      passIcon.style.filter = "invert(100%)";
-      count++;
-    } else if (count == 2) {
-      // Hide password
-      passwordField.type = "password";
-      passIcon.src = "/assets/closedEye.png"; // Change to the icon for visible password
-      passIcon.style.filter = "invert(100%)"; // Reset filter
 
-      count--;
-    }
-  });
+// password toggle 
+const passwordField = document.getElementById("password");
+const passIcon = document.querySelector(".showPass .pass");
+
+document.querySelector(".showPass").addEventListener("click", () => {
+  const isPassword = passwordField.type === "password";
+  passwordField.type = isPassword ? "text" : "password";
+  passIcon.src = isPassword ? "/assets/pass.png" : "/assets/closedEye.png";
+  passIcon.style.filter = "invert(100%)";
 });
 
 
