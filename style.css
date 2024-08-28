@@ -325,6 +325,7 @@ a{
   -o-border-radius: 30px;
   padding-top: 30px;
   margin-top: 10%;
+  padding: 3%;
 }
 .logoutContainer{
   height: 100px !important;
@@ -336,6 +337,12 @@ a{
 
 .binClearContainer{
   margin-top: 10%;
+}
+#binClearChart{
+  padding: 3%;
+}
+#overAllBinCleared{
+  padding: 0;
 }
 
 .refresh{
