@@ -424,7 +424,8 @@ var optionsForDriver = {
 
 const overallBinClearance = {
   chart: {
-    type: "area", // Change to 'area' to use an area chart
+    type: "area",
+    width: '100%',// Change to 'area' to use an area chart
     toolbar: {
       show: false,
     },

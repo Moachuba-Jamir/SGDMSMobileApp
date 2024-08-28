@@ -16,6 +16,10 @@ body {
   background: #05000b !important ;
   
 }
+#overAllBinCleared{
+  margin: 0;
+  padding: 0;
+}
 
 #chart {
     margin: 4px auto;
@@ -325,7 +329,7 @@ a{
   -o-border-radius: 30px;
   padding-top: 30px;
   margin-top: 10%;
-  padding: 3%;
+  padding: 1%;
 }
 .logoutContainer{
   height: 100px !important;
@@ -338,11 +342,9 @@ a{
 .binClearContainer{
   margin-top: 10%;
 }
-#binClearChart{
+#binClearChart {
+  width: 100% !important; 
   padding: 3%;
-}
-#overAllBinCleared{
-  
 }
 
 .refresh{
