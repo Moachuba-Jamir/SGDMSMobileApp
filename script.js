@@ -343,8 +343,8 @@ var optionsForDriver = {
       fontSize: "14px",
       fontFamily: "Gotham, Arial, sans-serif",
       padding: {
-        left: 15
-      }
+        left: 15,
+      },
     },
   },
   chart: {
@@ -397,6 +397,9 @@ var optionsForDriver = {
     },
   },
   yaxis: {
+    series: {
+      data: [0, 1, 2, 3, 4, 5],
+    },
     title: {
       text: "",
       style: {
@@ -474,6 +477,9 @@ const overallBinClearance = {
     },
   },
   yaxis: {
+    series: {
+        data: [0,1,2,3,4,5]
+    }, 
     labels: {
       style: {
         colors: "#fff", // White color for Y-axis labels
