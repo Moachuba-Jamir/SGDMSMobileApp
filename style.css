@@ -250,7 +250,7 @@ a{
 }
 
 .supportHeader{
-  margin-top: 10% ;
+  margin-top: 40% ;
 }
 .social{
   height: 20px;
@@ -335,4 +335,8 @@ a{
 .binClearLogo{
   height: 50px;
   width: 50px;
+}
+
+.binClearContainer{
+  margin-top: 10%;
 }

@@ -4,7 +4,9 @@ var isBinFull = false;
 var isBinEmpty = true;
 var disposed = document.querySelector(".btn2");
 var currMonth = new Date().getMonth();
+var date= new Date();
 localStorage.setItem("isDataFetched", "false");
+
 
 const myPopup = new Popup({
   id: "my-popup",
@@ -31,6 +33,7 @@ const logoutPop = new Popup({
           <button class="btn btn-danger yes myBtn"> Yes </button></div>
         </div></div>`,
 });
+
 
 // function notificationPermission() {
 //   // ask for notification from user
@@ -135,7 +138,6 @@ function getReadings(userId) {
           }
 
           if (isBinFull && parseInt(data.message) < 30) {
-           
             isBinEmpty = true;
             isBinFull = false;
           }
@@ -410,6 +412,83 @@ var optionsForDriver = {
   },
 };
 
+const overallBinClearance = {
+  chart: {
+    type: "area", // Change to 'area' to use an area chart
+    toolbar: {
+      show: false,
+    },
+    background: "transparent", // Optional: Set a background color for the chart area
+  },
+  stroke: {
+    curve: "smooth",
+    width: 2,
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "dark",
+      type: "vertical",
+      shadeIntensity: 0.5,
+      gradientToColors: ["#50e3c2"], // to set gradient colors
+      inverseColors: true,
+      opacityFrom: 0.0,
+      opacityTo: 0.5,
+      stops: [0, 100],
+    },
+  },
+  grid: {
+    borderColor: "#555", // Grid line color
+    strokeDashArray: 5,
+  },
+  plotOptions: {
+    area: {
+      distributed: true, // Apply different colors to each data point
+    },
+  },
+  colors: ["#FEB019"], // Colors for each data point
+  series: [
+    {
+      name: "",
+      data: [], // Sample data for the area chart
+    },
+  ],
+  xaxis: {
+    categories: [], // Example categories for the X-axis
+    labels: {
+      style: {
+        colors: "#fff", // White color for X-axis labels
+        fontSize: "10px",
+      },
+    },
+  },
+  yaxis: {
+    labels: {
+      style: {
+        colors: "#fff", // White color for Y-axis labels
+        fontSize: "12px",
+      },
+    },
+  },
+  title: {
+    text: `Annual bin clearance per location ( ${date.getFullYear()} ) `,
+    style: {
+      color: "#fff", // White color for the title
+      fontSize: "16px",
+      fontWeight: "bold",
+    },
+  },
+  tooltip: {
+    theme: "dark", // Optional: Dark tooltip for better visibility
+  },
+  legend: {
+    show: false, // Hide the legend if you don't need it
+  },
+};
+
+
+
+
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 
 var chart1 = new ApexCharts(
@@ -417,8 +496,14 @@ var chart1 = new ApexCharts(
   optionsForDriver
 );
 
+var chart3 = new ApexCharts(
+  document.querySelector("#overAllBinCleared"),
+  overallBinClearance
+);
+
 chart.render();
 chart1.render();
+chart3.render();
 
 document.querySelector(".logoutBtn").addEventListener("click", () => {
   document.querySelector(".no").addEventListener("click", () => {
@@ -437,30 +522,52 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   localStorage.removeItem("analytics");
+  localStorage.removeItem("binCleared");
 
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   var myDriverAnalytics = [];
-
+  var binCleared1 = [];
+  var binLocations = [];
   // initially load the analytics
   fetch(
-    `https://backend-for-sgdms-1.onrender.com/driverAnalytics?userName=${localStorage.getItem(
-      "name"
-    )}`
+    `https://backend-for-sgdms-1.onrender.com/driverAnalytics?userName=${localStorage.getItem("name")}`
   )
     .then((response) => response.json())
     .then((data) => {
       console.log("from the post analytics initial:", data);
       let user = localStorage.getItem("name");
+      // set chart3 names of bin locations
 
       // Check if data is the driver object
-      if (data && data.driverName === user) {
-        console.log(`initial : ${data.analytics[2024]}`);
-        localStorage.setItem("analytics", JSON.stringify(data.analytics[2024]));
+      if (data.updatedDriver.driverName === user) {
+        console.log(`initial : ${data.updatedDriver.analytics[2024]}`);
+        localStorage.setItem(
+          "analytics",
+          JSON.stringify(data.updatedDriver.analytics[2024])
+        );
+        data.updatedBin[0].myBins.forEach((bin) => {
+          binCleared1.push(bin.binCleared["2024"]);
+          binLocations.push(bin.location);
+        });
+        localStorage.setItem("binCleared", binCleared1);
+
+        chart3.updateOptions({
+          xaxis: {
+            categories: binLocations,
+          },
+        });
+        // Update chart with new data
+        chart3.updateSeries([
+          {
+            name: "Total bins cleared ",
+            data: binCleared1,
+          },
+        ]);
         let analytics = localStorage.getItem("analytics");
         let pureAnalytics = JSON.parse(analytics);
         // Check if data is the driver object
         if (data && data.driverName === user) {
-          console.log(`initial : ${data.analytics[2024]}`);
+          console.log(`initial : ${data.updatedDriver.analytics[2024]}`);
           localStorage.setItem(
             "analytics",
             JSON.stringify(data.analytics[2024])
@@ -532,19 +639,33 @@ document.addEventListener("DOMContentLoaded", () => {
             })
               .then((response) => response.json())
               .then((data) => {
+                console.log("from the post analytics front end:", data);
                 console.log(
-                  "from the post analytics front end:",
-                  data.analytics[2024]
+                  `this is from the driverAnaltics of localhost ${JSON.stringify(
+                    data,
+                    null,
+                    2
+                  )}`
                 );
                 chart1.updateSeries([
                   {
                     name: "Number of bins cleared",
-                    data: data.analytics[2024], // updated data
+                    data: data.updatedDriver.analytics[2024], // updated data
+                  },
+                ]);
+                let udpatedBinCleared = [];
+                data.updatedBin.myBins.forEach((bin) => {
+                  udpatedBinCleared.push(bin.binCleared["2024"]);
+                });
+                chart3.updateSeries([
+                  {
+                    name: "Number of bins cleared",
+                    data: udpatedBinCleared, // updated data
                   },
                 ]);
                 localStorage.setItem(
                   "analytics",
-                  JSON.stringify(data.analytics[2024])
+                  JSON.stringify(data.updatedDriver.analytics[2024])
                 );
               })
               .catch((error) => {
@@ -618,7 +739,7 @@ document.addEventListener("DOMContentLoaded", () => {
             (bin) => bin.id === userId
           );
           if (locationLink) {
-            console.log(locationLink.driverLink);
+            console.log(locationLink);
             document.querySelector(".collect").addEventListener("click", () => {
               window.location.href = locationLink.driverLink;
             });
@@ -645,3 +766,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+
+setInterval(() => {
+  window.location.reload();
+}, 300000);
