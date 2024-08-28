@@ -468,7 +468,7 @@ const overallBinClearance = {
     labels: {
       style: {
         colors: "#fff", // White color for X-axis labels
-        fontSize: "9px",
+        fontSize: "8px",
       },
     },
   },
