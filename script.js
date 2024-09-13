@@ -1,12 +1,11 @@
 // ADD espreadings<30 to userId 1 and 5 in production
-// readings for esp 1 is configured to perfom click actions for development purposed ..  should be modified in porduction 
+// readings for esp 1 is configured to perfom click actions for development purposed ..  should be modified in porduction
 var isBinFull = false;
 var isBinEmpty = true;
 var disposed = document.querySelector(".btn2");
 var currMonth = new Date().getMonth();
-var date= new Date();
+var date = new Date();
 localStorage.setItem("isDataFetched", "false");
-
 
 const myPopup = new Popup({
   id: "my-popup",
@@ -33,7 +32,6 @@ const logoutPop = new Popup({
           <button class="btn btn-danger yes myBtn"> Yes </button></div>
         </div></div>`,
 });
-
 
 // function notificationPermission() {
 //   // ask for notification from user
@@ -119,132 +117,141 @@ const logoutPop = new Popup({
 // }
 
 function getReadings(userId) {
-  var count = [1, 2, 3, 4, 5];
+  // var count = [1, 2, 3, 4, 5];
   var button = document.querySelector(".btn2");
-  if (userId === "01") {
-    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[0]}`)
-      .then((res) => {
-        return res.json(); // Ensure the response is returned as JSON
-      })
-      .then((data) => {
-        // update the fill level from here
-        console.log(`from chart.js ${data.message}`);
-        chart.updateSeries([parseInt(data.message)]);
+  fetch("https://backend-for-sgdms-1.onrender.com/adminRoute")
+    .then((res) => {
+      return res.json(); // Ensure the response is returned as JSON
+    })
+    .then((data) => {
+      console.log(`Data from esp1 : ${JSON.stringify(data, null, 2)}`);
+      // update the fill level from here
+      console.log(`from chart.js ${data[userId]}`);
+      // let temp = parseInt(data[userId][0]);
+      // console.log(`is this a number : ${temp}:  ${typeof temp}`);
+      // chart.updateSeries([parseInt(data[userId][0])]);
+      if (data[userId] <= 30) {
+        chart.updateSeries([90]);
+      } else if (data[userId] > 30 && data[userId] < 40) {
+        chart.updateSeries([60]);
+      } else if (data[userId] > 40 && data[userId] < 60) {
+        chart.updateSeries([40]);
+      } else {
+        chart.updateSeries([20]);
+      }
+      if (data[userId] <= 30) {
+        isBinEmpty = false;
+        isBinFull = true;
+      }
+      // check if bin was cleared after it was filled
+      if (isBinFull && data[userId] > 70) {
+        button.classList.remove("disabled");
+        isBinEmpty = true;
+        isBinFull = false;
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+  // if (userId === "02") {
+  //   fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[1]}`)
+  //     .then((res) => {
+  //       return res.json(); // Ensure the response is returned as JSON
+  //     })
+  //     .then((data) => {
+  //       // update the fill level from here
+  //       console.log(`from chart.js ${data.message}`);
+  //       let temp = parseInt(data[userId][0]);
+  //       console.log(`is this a number : ${temp}:  ${typeof temp}`);
+  //       chart.updateSeries([parseInt(data[userId][0])]);
 
-          if (parseInt(data.message) > 80) {
-            isBinEmpty = false;
-            isBinFull = true;
-             button.classList.remove("disabled");
-          }
+  //       if (parseInt(data.message) > 80) {
+  //         isBinEmpty = false;
+  //         isBinFull = true;
+  //       }
 
-          if (isBinFull && parseInt(data.message) < 30) {
-            isBinEmpty = true;
-            isBinFull = false;
-          }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  } else if (userId === "02") {
-    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[1]}`)
-      .then((res) => {
-        return res.json(); // Ensure the response is returned as JSON
-      })
-      .then((data) => {
-        // update the fill level from here
-        console.log(`from chart.js ${data.message}`);
-        chart.updateSeries([parseInt(data.message)]);
+  //       if (isBinFull && parseInt(data.message) < 30) {
+  //         button.classList.remove("disabled");
+  //         isBinEmpty = true;
+  //         isBinFull = false;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // } else if (userId === "03") {
+  //   fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[2]}`)
+  //     .then((res) => {
+  //       return res.json(); // Ensure the response is returned as JSON
+  //     })
+  //     .then((data) => {
+  //       // update the fill level from here
+  //       console.log(`from chart.js ${data.message}`);
+  //       chart.updateSeries([parseInt(data[userId][0])]);
 
-        if (parseInt(data.message) > 80) {
-          isBinEmpty = false;
-          isBinFull = true;
-        }
+  //       if (parseInt(data.message) > 80) {
+  //         isBinEmpty = false;
+  //         isBinFull = true;
+  //       }
 
-        if (isBinFull && parseInt(data.message) < 30) {
-          button.classList.remove("disabled");
-          isBinEmpty = true;
-          isBinFull = false;
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  } else if (userId === "03") {
-    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[2]}`)
-      .then((res) => {
-        return res.json(); // Ensure the response is returned as JSON
-      })
-      .then((data) => {
-        // update the fill level from here
-        console.log(`from chart.js ${data.message}`);
-        chart.updateSeries([parseInt(data.message)]);
+  //       if (isBinFull && parseInt(data.message) < 30) {
+  //         button.classList.remove("disabled");
+  //         isBinEmpty = true;
+  //         isBinFull = false;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // } else if (userId === "04") {
+  //   fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[3]}`)
+  //     .then((res) => {
+  //       return res.json(); // Ensure the response is returned as JSON
+  //     })
+  //     .then((data) => {
+  //       // update the fill level from here
+  //       console.log(`from chart.js ${data.message}`);
+  //       chart.updateSeries([parseInt(data[userId])]);
 
-    
-          if (parseInt(data.message) > 80) {
-            isBinEmpty = false;
-            isBinFull = true;
-          }
+  //       if (parseInt(data.message) > 80) {
+  //         isBinEmpty = false;
+  //         isBinFull = true;
+  //       }
 
-          if (isBinFull && parseInt(data.message) < 30) {
-            button.classList.remove("disabled");
-            isBinEmpty = true;
-            isBinFull = false;
-          }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  } else if (userId === "04") {
-    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[3]}`)
-      .then((res) => {
-        return res.json(); // Ensure the response is returned as JSON
-      })
-      .then((data) => {
-        // update the fill level from here
-        console.log(`from chart.js ${data.message}`);
-        chart.updateSeries([parseInt(data.message)]);
+  //       if (isBinFull && parseInt(data.message) < 30) {
+  //         button.classList.remove("disabled");
+  //         isBinEmpty = true;
+  //         isBinFull = false;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // } else if (userId === "05") {
+  //   fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[4]}`)
+  //     .then((res) => {
+  //       return res.json(); // Ensure the response is returned as JSON
+  //     })
+  //     .then((data) => {
+  //       // update the fill level from here
+  //       console.log(`from chart.js ${data.message}`);
+  //       chart.updateSeries([parseInt(data[userId])]);
 
-  
-          if (parseInt(data.message) > 80) {
-            isBinEmpty = false;
-            isBinFull = true;
-          }
+  //       if (parseInt(data.message) > 80) {
+  //         isBinEmpty = false;
+  //         isBinFull = true;
+  //       }
 
-          if (isBinFull && parseInt(data.message) < 30) {
-            button.classList.remove("disabled");
-            isBinEmpty = true;
-            isBinFull = false;
-          }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  } else if (userId === "05") {
-    fetch(`https://backend-for-sgdms-1.onrender.com/esp${count[4]}`)
-      .then((res) => {
-        return res.json(); // Ensure the response is returned as JSON
-      })
-      .then((data) => {
-        // update the fill level from here
-        console.log(`from chart.js ${data.message}`);
-        chart.updateSeries([parseInt(data.message)]);
-
-     
-          if (parseInt(data.message) > 80) {
-            isBinEmpty = false;
-            isBinFull = true;
-          }
-
-          if (isBinFull && parseInt(data.message) < 30) {
-            button.classList.remove("disabled");
-            isBinEmpty = true;
-            isBinFull = false;
-          }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }
+  //       if (isBinFull && parseInt(data.message) < 30) {
+  //         button.classList.remove("disabled");
+  //         isBinEmpty = true;
+  //         isBinFull = false;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }
 }
 
 var options = {
@@ -428,7 +435,7 @@ var optionsForDriver = {
 const overallBinClearance = {
   chart: {
     type: "area",
-    width: '100%',// Change to 'area' to use an area chart
+    width: "100%", // Change to 'area' to use an area chart
     toolbar: {
       show: false,
     },
@@ -478,8 +485,8 @@ const overallBinClearance = {
   },
   yaxis: {
     series: {
-        data: [0,1,2,3,4,5]
-    }, 
+      data: [0, 1, 2, 3, 4, 5],
+    },
     labels: {
       style: {
         colors: "#fff", // White color for Y-axis labels
@@ -494,8 +501,8 @@ const overallBinClearance = {
       fontSize: "14px",
       fontFamily: "Gotham, Arial, sans-serif",
       padding: {
-        left: 15
-      }
+        left: 15,
+      },
     },
   },
   tooltip: {
@@ -505,9 +512,6 @@ const overallBinClearance = {
     show: false, // Hide the legend if you don't need it
   },
 };
-
-
-
 
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 
@@ -530,7 +534,7 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
     logoutPop.hide();
   });
 
-  // on log out 
+  // on log out
   document.querySelector(".yes").addEventListener("click", () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("name");
@@ -550,7 +554,9 @@ document.addEventListener("DOMContentLoaded", () => {
   var binLocations = [];
   // initially load the analytics
   fetch(
-    `https://backend-for-sgdms-1.onrender.com/driverAnalytics?userName=${localStorage.getItem("name")}`
+    `https://backend-for-sgdms-1.onrender.com/driverAnalytics?userName=${localStorage.getItem(
+      "name"
+    )}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -700,54 +706,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
           switch (userId) {
             case "01":
-              if (localStorage.getItem("isDataFetched") === "false") {
+              getReadings(userId);
+              setInterval(() => {
                 getReadings(userId);
-                localStorage.setItem("isDataFetched", "true");
-              } else {
-                setInterval(() => {
-                  getReadings(userId);
-                }, 60000);
-              }
+              }, 10000);
+
               break;
             case "02":
-              if (localStorage.getItem("isDataFetched") === "false") {
+              getReadings(userId);
+              setInterval(() => {
                 getReadings(userId);
-                localStorage.setItem("isDataFetched", "true");
-              } else {
-                setInterval(() => {
-                  getReadings(userId);
-                }, 60000);
-              }
+              }, 10000);
+
               break;
             case "03":
-              if (localStorage.getItem("isDataFetched") === "false") {
+              getReadings(userId);
+              setInterval(() => {
                 getReadings(userId);
-                localStorage.setItem("isDataFetched", "true");
-              } else {
-                setInterval(() => {
-                  getReadings(userId);
-                }, 60000);
-              }
+              }, 10000);
+
               break;
             case "04":
-              if (localStorage.getItem("isDataFetched") === "false") {
+              getReadings(userId);
+              setInterval(() => {
                 getReadings(userId);
-                localStorage.setItem("isDataFetched", "true");
-              } else {
-                setInterval(() => {
-                  getReadings(userId);
-                }, 60000);
-              }
+              }, 10000);
+
               break;
             case "05":
-              if (localStorage.getItem("isDataFetched") === "false") {
+              getReadings(userId);
+              setInterval(() => {
                 getReadings(userId);
-                localStorage.setItem("isDataFetched", "true");
-              } else {
-                setInterval(() => {
-                  getReadings(userId);
-                }, 60000);
-              }
+              }, 10000);
+
               break;
             default:
               console.warn("NO such endpoints for esp readings ");
@@ -787,11 +778,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 setInterval(() => {
   window.location.reload();
 }, 300000);
 
-document.querySelector(".refresh").addEventListener('click', () => {
-  window.location.reload(); 
+document.querySelector(".refresh").addEventListener("click", () => {
+  window.location.reload();
 });
