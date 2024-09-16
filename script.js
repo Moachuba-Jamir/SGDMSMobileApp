@@ -778,10 +778,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-setInterval(() => {
-  window.location.reload();
-}, 300000);
-
 document.querySelector(".refresh").addEventListener("click", () => {
   window.location.reload();
 });
