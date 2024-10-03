@@ -128,20 +128,18 @@ function getReadings(userId) {
       // update the fill level from here
       console.log(`from chart.js ${data[userId]}`);
       // let temp = parseInt(data[userId][0]);
-      // console.log(`is this a number : ${temp}:  ${typeof temp}`);
+      // console.log(`is this a number : ${temp}:  ${typeof temp}`) ;
       // chart.updateSeries([parseInt(data[userId][0])]);
       if (data[userId] <= 30) {
         chart.updateSeries([90]);
+        isBinEmpty = false;
+        isBinFull = true;
       } else if (data[userId] > 30 && data[userId] < 40) {
         chart.updateSeries([60]);
       } else if (data[userId] > 40 && data[userId] < 60) {
         chart.updateSeries([40]);
       } else {
         chart.updateSeries([20]);
-      }
-      if (data[userId] <= 30) {
-        isBinEmpty = false;
-        isBinFull = true;
       }
       // check if bin was cleared after it was filled
       if (isBinFull && data[userId] > 70) {
@@ -707,14 +705,34 @@ document.addEventListener("DOMContentLoaded", () => {
           // Call getReadings first, then set the interval based on the userId
           switch (userId) {
             case "01":
+              getReadings(userId); // Initially fire the function once
+              setInterval(() => {
+                getReadings(userId); // Set interval to fire every 10 seconds
+              }, 10000); //half an hour interval
+              break;
             case "02":
+              getReadings(userId); // Initially fire the function once
+              setInterval(() => {
+                getReadings(userId); // Set interval to fire every 10 seconds
+              }, 10000); //half an hour interval
+              break;
             case "03":
+              getReadings(userId); // Initially fire the function once
+              setInterval(() => {
+                getReadings(userId); // Set interval to fire every 10 seconds
+              }, 10000); //half an hour interval
+              break;
             case "04":
+              getReadings(userId); // Initially fire the function once
+              setInterval(() => {
+                getReadings(userId); // Set interval to fire every 10 seconds
+              }, 10000); //half an hour interval
+              break;
             case "05":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1800000); //half an hour interval
+              }, 10000); //half an hour interval
               break;
 
             default:
