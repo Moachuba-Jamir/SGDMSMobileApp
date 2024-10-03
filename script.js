@@ -119,7 +119,7 @@ const logoutPop = new Popup({
 function getReadings(userId) {
   // var count = [1, 2, 3, 4, 5];
   var button = document.querySelector(".btn2");
-  fetch("https://backend-for-sgdms-1.onrender.com/adminRoute")
+  fetch("https://dglmawjx1pzub.cloudfront.net/adminRoute")
     .then((res) => {
       return res.json(); // Ensure the response is returned as JSON
     })
@@ -554,7 +554,7 @@ document.addEventListener("DOMContentLoaded", () => {
   var binLocations = [];
   // initially load the analytics
   fetch(
-    `https://backend-for-sgdms-1.onrender.com/driverAnalytics?userName=${localStorage.getItem(
+    `https://dglmawjx1pzub.cloudfront.net/driverAnalytics?userName=${localStorage.getItem(
       "name"
     )}`
   )
@@ -631,7 +631,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("driverName").innerHTML = user;
 
-    fetch("https://backend-for-sgdms-1.onrender.com/bins")
+    fetch("https://dglmawjx1pzub.cloudfront.net/bins")
       .then((response) => response.json())
       .then((data) => {
         console.log("Data fetched:", data);
@@ -655,7 +655,7 @@ document.addEventListener("DOMContentLoaded", () => {
               monthIndex: currMonth,
             };
 
-            fetch("https://backend-for-sgdms-1.onrender.com/driverAnalytics", {
+            fetch("https://dglmawjx1pzub.cloudfront.net/driverAnalytics", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -704,47 +704,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 5000);
           });
 
+          // Call getReadings first, then set the interval based on the userId
           switch (userId) {
             case "01":
-              getReadings(userId);
-              setInterval(() => {
-                getReadings(userId);
-              }, 10000);
-
-              break;
             case "02":
-              getReadings(userId);
-              setInterval(() => {
-                getReadings(userId);
-              }, 10000);
-
-              break;
             case "03":
-              getReadings(userId);
-              setInterval(() => {
-                getReadings(userId);
-              }, 10000);
-
-              break;
             case "04":
-              getReadings(userId);
-              setInterval(() => {
-                getReadings(userId);
-              }, 10000);
-
-              break;
             case "05":
-              getReadings(userId);
+              getReadings(userId); // Initially fire the function once
               setInterval(() => {
-                getReadings(userId);
-              }, 10000);
-
+                getReadings(userId); // Set interval to fire every 10 seconds
+              }, 1800000); //half an hour interval
               break;
+
             default:
-              console.warn("NO such endpoints for esp readings ");
+              console.warn("No such endpoints for ESP readings");
               break;
           }
-
           // find the links in the object
           const locationLink = data.bins[0].myBins.find(
             (bin) => bin.id === userId
