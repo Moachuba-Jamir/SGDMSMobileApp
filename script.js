@@ -702,37 +702,40 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 5000);
           });
 
+          // half an hour in production :  1800000
+          // 10 seconds in development : 10000
+
           // Call getReadings first, then set the interval based on the userId
           switch (userId) {
             case "01":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1800000); //half an hour interval
+              }, 10000); //half an hour interval
               break;
             case "02":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1800000); //half an hour interval
+              }, 10000); //half an hour interval
               break;
             case "03":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1800000); //half an hour interval
+              }, 10000); //half an hour interval
               break;
             case "04":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1800000); //half an hour interval
+              }, 10000); //half an hour interval
               break;
             case "05":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1800000); //half an hour interval              break;
+              }, 10000); //half an hour interval              break;
 
             default:
               console.warn("No such endpoints for ESP readings");
