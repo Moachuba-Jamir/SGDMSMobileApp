@@ -711,31 +711,31 @@ document.addEventListener("DOMContentLoaded", () => {
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 10000); //half an hour interval
+              }, 1000); //half an hour interval
               break;
             case "02":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 10000); //half an hour interval
+              }, 1000); //half an hour interval
               break;
             case "03":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 10000); //half an hour interval
+              }, 1000); //half an hour interval
               break;
             case "04":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 10000); //half an hour interval
+              }, 1000); //half an hour interval
               break;
             case "05":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
                 getReadings(userId); // Set interval to fire every 10 seconds
-              }, 10000); //half an hour interval              break;
+              }, 1000); //half an hour interval              break;
 
             default:
               console.warn("No such endpoints for ESP readings");
