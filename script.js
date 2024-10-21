@@ -117,7 +117,6 @@ const logoutPop = new Popup({
 // }
 
 function getReadings(userId) {
-  // var count = [1, 2, 3, 4, 5];
   var button = document.querySelector(".btn2");
   fetch("https://dglmawjx1pzub.cloudfront.net/adminRoute")
     .then((res) => {
