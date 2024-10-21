@@ -331,6 +331,12 @@ a{
   margin-top: 10%;
   padding: 1%;
 }
+
+.chatbot{
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+
 .logoutContainer{
   height: 100px !important;
 }
