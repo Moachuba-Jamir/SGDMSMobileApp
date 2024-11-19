@@ -129,19 +129,19 @@ function getReadings(userId) {
       // let temp = parseInt(data[userId][0]);
       // console.log(`is this a number : ${temp}:  ${typeof temp}`) ;
       // chart.updateSeries([parseInt(data[userId][0])]);
-      if (data[userId] <= 30) {
+      if (data[userId] > 140 && data[userId] < 170) {
         chart.updateSeries([90]);
         isBinEmpty = false;
         isBinFull = true;
-      } else if (data[userId] > 30 && data[userId] < 40) {
+      } else if (data[userId] > 170 && data[userId] < 180) {
         chart.updateSeries([60]);
-      } else if (data[userId] > 40 && data[userId] < 60) {
+      } else if (data[userId] > 180 && data[userId] < 190) {
         chart.updateSeries([40]);
       } else {
         chart.updateSeries([20]);
       }
       // check if bin was cleared after it was filled
-      if (isBinFull && data[userId] > 70) {
+      if (isBinFull && data[userId] > 170) {
         button.classList.remove("disabled");
         isBinEmpty = true;
         isBinFull = false;
