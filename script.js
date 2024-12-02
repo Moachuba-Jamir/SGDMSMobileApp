@@ -709,32 +709,33 @@ document.addEventListener("DOMContentLoaded", () => {
             case "01":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
-                getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1000); //half an hour interval
+                getReadings(userId); // Set interval to fire every 10 minutes
+              }, 60000); //half an hour interval
               break;
             case "02":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
-                getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1000); //half an hour interval
+                getReadings(userId); // Set interval to fire every 10 minutes
+              }, 60000); //half an hour interval
               break;
             case "03":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
-                getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1000); //half an hour interval
+                getReadings(userId); // Set interval to fire every 10 minutes
+              }, 60000); //half an hour interval
               break;
             case "04":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
-                getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1000); //half an hour interval
+                getReadings(userId); // Set interval to fire every 10 minutes
+              }, 60000); //half an hour interval
               break;
             case "05":
               getReadings(userId); // Initially fire the function once
               setInterval(() => {
-                getReadings(userId); // Set interval to fire every 10 seconds
-              }, 1000); //half an hour interval              break;
+                getReadings(userId); // Set interval to fire every 10 minutes
+              }, 60000); //half an hour interval              
+              break;
 
             default:
               console.warn("No such endpoints for ESP readings");
